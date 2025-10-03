@@ -177,7 +177,7 @@ namespace KinoPoisk.DB
                 {
                     Id = 1,
                     Login = "admin",
-                    Password = "admin123", 
+                    Password = "admin", 
                     IsAdmin = true,
                     HasSubscription = true
                 });
