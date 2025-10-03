@@ -38,4 +38,11 @@ public partial class AdminPage : ContentPage
             DisplayAlert("Ошибка", "Выберите пользователя для удаления", "ОК");
         }
     }
+
+    private async void AddContent(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AddContentPage());
+    }
+
+  
 }

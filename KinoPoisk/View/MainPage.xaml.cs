@@ -25,5 +25,15 @@ namespace KinoPoisk.View
         {
             await DisplayAlert("Подписка", "Здесь будет контент для подписчиков", "ОК");
         }
+
+        private void Search(object sender, EventArgs e)
+        {
+            DisplayAlert("Поиск", "Открыть поиск", "OK");
+        }
+
+        private void Profile(object sender, EventArgs e)
+        {
+            DisplayAlert("Профиль", "Открыть профиль", "OK");
+        }
     }
 }

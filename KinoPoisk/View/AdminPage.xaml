@@ -2,20 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KinoPoisk.View.AdminPage"
-             Title="Админ">
-    
-    
-    
-    <StackLayout x:Name="AdminPanel">
-        <Label Text="Админ-панель: пользователи" FontAttributes="Bold"/>
-        <ListView x:Name="UsersListView" ItemSelected="Selected">
+             BackgroundColor="#121212"
+             NavigationPage.HasBackButton="False">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
+            <Label Text="KinoPoisk" FontSize="22" FontAttributes="Bold" VerticalOptions="Center"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="Список пользователей" FontAttributes="Bold"/>
+
+        <ListView x:Name="UsersListView" ItemSelected="Selected" HeightRequest="200">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Login}" Detail="{Binding Id}"/>
+                    <TextCell Text="{Binding Login}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Удалить выбранного пользователя" Clicked="Delete"/>
-    </StackLayout>
-    
+
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="Удалить пользователя" Clicked="Delete"/>
+        </HorizontalStackLayout>
+
+        <Label Text="Управление контентом" FontAttributes="Bold" Margin="0,20,0,0"/>
+
+        <Button Text="Добавить фильм/Сериал" Clicked="AddContent"/>
+
+    </VerticalStackLayout>
+
 </ContentPage>

@@ -2,17 +2,28 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KinoPoisk.View.MainPage"
-              Title="Главная">
+             BackgroundColor="#121212"
+             NavigationPage.HasBackButton="False">
 
-    <StackLayout Padding="20" Spacing="15">
-        
-        <Label x:Name="WelcomeLabel" FontSize="Large" HorizontalOptions="Center"/>
+    <NavigationPage.TitleView>
+        <Grid VerticalOptions="Center">
+            <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
+                <Label Text="KinoPoisk" FontSize="22" FontAttributes="Bold" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="15" VerticalOptions="Center"  HorizontalOptions="End" Grid.Column="1">
+                <Button Text="Profile" FontSize="22" TextColor="#FF6600"  BackgroundColor="Transparent" Clicked="Profile"/>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label x:Name="WelcomeLabel" FontSize="24" HorizontalOptions="Center"/>
         <Label x:Name="RoleLabel"/>
         <Label x:Name="SubscriptionLabel"/>
 
         <Button Text="Контент для подписчиков" x:Name="SubscriptionButton" IsVisible="False" Clicked="Sub"/>
-
-
-    </StackLayout>
+    </VerticalStackLayout>
 
 </ContentPage>

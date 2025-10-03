@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinoPoisk.View.AddContentPage"
+             BackgroundColor="#121212">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
+            <Label Text="KinoPoisk" FontSize="22" FontAttributes="Bold" VerticalOptions="Center"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Название:" TextColor="White"/>
+            <Entry x:Name="NameEntry" Placeholder="Введите название"/>
+
+            <Label Text="Описание:" TextColor="White"/>
+            <Editor x:Name="DescriptionEditor" HeightRequest="100"/>
+
+            <Label Text="Тип контента:" TextColor="White"/>
+            <Picker x:Name="TypePicker" Title="Выберите тип">
+                <Picker.Items>
+                    <x:String>Фильм</x:String>
+                    <x:String>Сериал</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Жанр:" TextColor="White"/>
+            <Picker x:Name="GenrePicker"/>
+
+            <Label Text="Автор:" TextColor="White"/>
+            <Picker x:Name="AuthorPicker"/>
+
+            <Label Text="Возрастной рейтинг:" TextColor="White"/>
+            <Entry x:Name="AgeEntry" Placeholder="Например: 16+" Keyboard="Numeric"/>
+
+            <Label Text="Картинка:" TextColor="White"/>
+            <Button Text="Выбрать изображение" Clicked="LoadImage"/>
+            <Image x:Name="SelectedImage" HeightRequest="150"/>
+
+            <Button Text="Сохранить" Clicked="Save"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -3,12 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:KinoPoisk"
              x:Class="KinoPoisk.App">
-    <Application.Resources>
+     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+            
+            <Color x:Key="PrimaryOrange">#CC5500</Color>
+            <Color x:Key="LiteOrange">#FF6600</Color>
+            <Color x:Key="BackgroundOrange">#FFF3E0</Color>
+            <Color x:Key="TextDark">#222222</Color>
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="#0D0D0D"/>
+
+                <Setter Property="BarTextColor" Value="{StaticResource LiteOrange}"/>
+
+                <Setter Property="IconColor" Value="{StaticResource LiteOrange}"/>
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="TextColor" Value="{StaticResource TextDark}"/>
+                <Setter Property="PlaceholderColor" Value="#888"/>
+                <Setter Property="Margin" Value="0,5"/>
+                <Setter Property="HeightRequest" Value="45"/>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryOrange}"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="HeightRequest" Value="45"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Margin" Value="0,5"/>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource LiteOrange}"/>
+            </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

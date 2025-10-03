@@ -181,6 +181,15 @@ namespace KinoPoisk.DB
                     IsAdmin = true,
                     HasSubscription = true
                 });
+
+                Users.Add(new User
+                {
+                    Id = 2,
+                    Login = "123",
+                    Password = "123",
+                    IsAdmin = false,
+                    HasSubscription = true
+                });
             }
         }
     }
