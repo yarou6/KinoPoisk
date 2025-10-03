@@ -20,21 +20,122 @@ namespace KinoPoisk.DB
 
         List<TypeContent> TypeContents;
 
-        public List<Content> GetContent()
+        public void AddContent(Content content) => Contents.Add(content);
+        public void UpdateContent(Content updated)
         {
-            return Contents;
-        }
-        public Content GetContentId(int id)
-        {
-            foreach (Content content in Contents)
+            var content = Contents.FirstOrDefault(c => c.Id == updated.Id);
+            if(content != null)
             {
-                if (content.Id == id)
-                {
-                    return content;
-                }
+                content.IdTypeContent = updated.IdTypeContent;
+                content.TypeContent = updated.TypeContent;
+
+                content.IdRating = updated.IdRating;
+                content.Rating = updated.Rating;
+
+                content.IdGerne = updated.IdGerne;
+                content.Gerne = updated.Gerne;
+
+                content.IdAuthor = updated.IdAuthor;
+                content.Author = updated.Author;
+
+                content.Subscription = updated.Subscription;
+                content.Name = updated.Name;
+                content.Description = updated.Description;
+                content.Data = updated.Data;
+                content.CountSeries = updated.CountSeries;
+                content.Age = updated.Age;
             }
-            return null;
         }
+        public void RemoveContent(int id) => Contents.RemoveAll(c => c.Id == id);
+        public List<Content> GetContents() => Contents;
+        public void GetContentId(int id) => Contents.FirstOrDefault(c => c.Id == id);
+
+
+
+        public void AddAuthor(Author author) => Authors.Add(author);
+        public void UpdateAuthor(Author updated) 
+        {
+            var author = Authors.FirstOrDefault(c => c.Id == updated.Id);
+            if(author != null)
+            {
+                author.Title = updated.Title;
+                author.Country = updated.Country;
+            }
+        }
+        public void RemoveAuthor(int id) => Authors.RemoveAll(c => c.Id == id);
+        public List<Author> GetAuthors() => Authors;
+        public void GetAuthorId(int id) => Authors.FirstOrDefault(c => c.Id == id); 
+
+
+
+
+        public void AddGenre(Gerne genre) => Gernes.Add(genre);
+        public void UpdateGerne(Gerne updated) 
+        { 
+            var genre = Gernes.FirstOrDefault(c => c.Id == updated.Id);
+            if (genre != null)
+            {
+                genre.Title = updated.Title;
+            }
+        }
+        public void RemoveGerne(int id) => Gernes.RemoveAll(c => c.Id == id);
+        public List<Gerne> GetGernes() => Gernes;
+        public void GetGerneId(int id) => Gernes.FirstOrDefault(c => c.Id == id);
+
+
+
+
+        public void AddRating(Rating rating) => Ratings.Add(rating);
+        public void UpdateRating(Rating updated)
+        {
+            var rating = Ratings.FirstOrDefault(c => c.Id == updated.Id);
+            if(rating != null)
+            {
+                rating.Stars = updated.Stars;
+                rating.Feedback = updated.Feedback;
+            }
+        }
+        public void RemoveRating(int id) => Ratings.RemoveAll(c => c.Id == id);
+        public List<Rating> GetRating() => Ratings;
+        public void GetRatingId(int id) => Ratings.FirstOrDefault(c => c.Id == id);
+
+
+
+        public void AddSeries(Series series) => Series.Add(series);
+        public void UpdateSeries(Series updated)
+        {
+            var series = Series.FirstOrDefault(c =>c.Id == updated.Id);
+            if(series != null)
+            {
+                series.Name = updated.Name;
+                series.Description = updated.Description;
+                series.Data = updated.Data;
+
+                series.IdRating = updated.IdRating;
+                series.Rating = updated.Rating;
+
+                series.IdContent = updated.IdContent;
+                series.Content = updated.Content;
+            }
+        }
+        public void RemoveSeries(int id) => Series.RemoveAll(c => c.Id ==id);
+        public List<Series> GetSeries() => Series;
+        public void GetSeriesId(int id) => Series.FirstOrDefault(s => s.Id == id);
+
+
+        public void AddTypeContent(TypeContent typeContent) => TypeContents.Add(typeContent);
+        public void UpdateTypeContent(TypeContent updated) 
+        {
+            var typeContent = TypeContents.FirstOrDefault(c => c.Id == updated.Id);
+            if(typeContent != null)
+            {
+                typeContent.Title = updated.Title;
+            }
+        }
+        public void RemoveTypeContent(int id) => TypeContents.RemoveAll(c => c.Id == id);
+        public List<TypeContent> GetTypeContent() => TypeContents;
+        public void GetTypeContentId(int id) => TypeContents.FirstOrDefault(c => c.Id == id);
+
 
     }
 }
