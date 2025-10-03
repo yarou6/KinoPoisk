@@ -137,5 +137,51 @@ namespace KinoPoisk.DB
         public void GetTypeContentId(int id) => TypeContents.FirstOrDefault(c => c.Id == id);
 
 
+
+
+
+
+
+
+
+        private List<User> Users = new();
+        public void RemoveUser(int id) => Users.RemoveAll(u => u.Id == id);
+        public User GetUserById(int id) => Users.FirstOrDefault(u => u.Id == id);
+        public List<User> GetUsers() => Users;
+        public User Authenticate(string login, string password)
+        {
+            return Users.FirstOrDefault(u => u.Login == login && u.Password == password);
+        }
+        public bool Register(string login, string password, bool isAdmin = false, bool hasSubscription = false)
+        {
+            if (Users.Any(u => u.Login == login))
+                return false;
+
+            var user = new User
+            {
+                Id = Users.Count > 0 ? Users.Max(u => u.Id) + 1 : 1,
+                Login = login,
+                Password = password,
+                IsAdmin = isAdmin,
+                HasSubscription = hasSubscription
+            }; 
+
+            Users.Add(user);
+            return true;
+        }
+        public void InitAdmin()
+        {
+            if (!Users.Any(u => u.IsAdmin))
+            {
+                Users.Add(new User
+                {
+                    Id = 1,
+                    Login = "admin",
+                    Password = "admin123", 
+                    IsAdmin = true,
+                    HasSubscription = true
+                });
+            }
+        }
     }
 }
