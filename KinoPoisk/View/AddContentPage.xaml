@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KinoPoisk.View.AddContentPage"
-             BackgroundColor="#121212">
+             BackgroundColor="#121212"
+             NavigationPage.HasBackButton="False">
+    
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
             <Label Text="KinoPoisk" FontSize="22" FontAttributes="Bold" VerticalOptions="Center"/>
@@ -29,11 +31,32 @@
             </Picker>
 
             <Label Text="Жанр:" TextColor="White"/>
-            <Picker x:Name="GenrePicker"/>
+            <CollectionView x:Name="GenreCollection" SelectionMode="Multiple">
+                <CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Боевик</x:String>
+                        <x:String>Комедия</x:String>
+                        <x:String>Драма</x:String>
+                        <x:String>Фантастика</x:String>
+                        <x:String>Ужасы</x:String>
+                        <x:String>Мелодрама</x:String>
+                        <x:String>Документальный</x:String>
+                    </x:Array>
+                </CollectionView.ItemsSource>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <CheckBox IsChecked="{Binding .}" />
+                            <Label Text="{Binding .}" TextColor="White" VerticalOptions="Center"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <Label Text="Автор:" TextColor="White"/>
             <Picker x:Name="AuthorPicker"/>
-
+            <Button Text="Добавить автора" Clicked="AddAuthor"/>
+            
             <Label Text="Возрастной рейтинг:" TextColor="White"/>
             <Entry x:Name="AgeEntry" Placeholder="Например: 16+" Keyboard="Numeric"/>
 
