@@ -8,22 +8,22 @@ namespace KinoPoisk.DB
 {
     public class DBALL
     {
-        List<Content> Contents;
+        List<Content> contents = new();
 
-        List<Author> Authors;
+        List<Author> authors = new();
 
-        List<Gerne> Gernes;
+        List<Gerne> gernes = new();
 
-        List<Rating> Ratings;
+        List<Rating> ratings = new();
 
-        List<Series> Series;
+        List<Series> series = new();
 
-        List<TypeContent> TypeContents;
+        List<TypeContent> typeContents = new();
 
-        public void AddContent(Content content) => Contents.Add(content);
-        public void UpdateContent(Content updated)
+        public async Task AddContent(Content content) => contents.Add(content);
+        public async Task UpdateContent(Content updated)
         {
-            var content = Contents.FirstOrDefault(c => c.Id == updated.Id);
+            var content = contents.FirstOrDefault(c => c.Id == updated.Id);
             if(content != null)
             {
                 content.IdTypeContent = updated.IdTypeContent;
@@ -46,65 +46,70 @@ namespace KinoPoisk.DB
                 content.Age = updated.Age;
             }
         }
-        public void RemoveContent(int id) => Contents.RemoveAll(c => c.Id == id);
-        public List<Content> GetContents() => Contents;
-        public void GetContentId(int id) => Contents.FirstOrDefault(c => c.Id == id);
+        public async Task RemoveContent(int id) => contents.RemoveAll(c => c.Id == id);
+        public async Task<List<Content>> GetContents() => contents;
+        public async Task GetContentId(int id) => contents.FirstOrDefault(c => c.Id == id);
 
 
 
-        public void AddAuthor(Author author) => Authors.Add(author);
-        public void UpdateAuthor(Author updated) 
+        public async Task AddAuthor(Author author)
         {
-            var author = Authors.FirstOrDefault(c => c.Id == updated.Id);
+            await Task.Delay(1000);
+            //Сделать id
+            authors.Add(author);
+        }
+        public async Task UpdateAuthor(Author updated) 
+        {
+            var author = authors.FirstOrDefault(c => c.Id == updated.Id);
             if(author != null)
             {
                 author.Title = updated.Title;
                 author.Country = updated.Country;
             }
         }
-        public void RemoveAuthor(int id) => Authors.RemoveAll(c => c.Id == id);
-        public List<Author> GetAuthors() => Authors;
-        public void GetAuthorId(int id) => Authors.FirstOrDefault(c => c.Id == id); 
+        public async Task RemoveAuthor(int id) => authors.RemoveAll(c => c.Id == id);
+        public async Task<List<Author>> GetAuthors() => authors;
+        public async Task GetAuthorId(int id) => authors.FirstOrDefault(c => c.Id == id); 
 
 
 
 
-        public void AddGenre(Gerne genre) => Gernes.Add(genre);
-        public void UpdateGerne(Gerne updated) 
+        public async Task AddGenre(Gerne genre) => gernes.Add(genre);
+        public async Task UpdateGerne(Gerne updated) 
         { 
-            var genre = Gernes.FirstOrDefault(c => c.Id == updated.Id);
+            var genre = gernes.FirstOrDefault(c => c.Id == updated.Id);
             if (genre != null)
             {
                 genre.Title = updated.Title;
             }
         }
-        public void RemoveGerne(int id) => Gernes.RemoveAll(c => c.Id == id);
-        public List<Gerne> GetGernes() => Gernes;
-        public void GetGerneId(int id) => Gernes.FirstOrDefault(c => c.Id == id);
+        public async Task RemoveGerne(int id) => gernes.RemoveAll(c => c.Id == id);
+        public async Task<List<Gerne>> GetGernes() => gernes;
+        public async Task GetGerneId(int id) => gernes.FirstOrDefault(c => c.Id == id);
 
 
 
 
-        public void AddRating(Rating rating) => Ratings.Add(rating);
-        public void UpdateRating(Rating updated)
+        public async Task AddRating(Rating rating) => ratings.Add(rating);
+        public async Task UpdateRating(Rating updated)
         {
-            var rating = Ratings.FirstOrDefault(c => c.Id == updated.Id);
+            var rating = ratings.FirstOrDefault(c => c.Id == updated.Id);
             if(rating != null)
             {
                 rating.Stars = updated.Stars;
                 rating.Feedback = updated.Feedback;
             }
         }
-        public void RemoveRating(int id) => Ratings.RemoveAll(c => c.Id == id);
-        public List<Rating> GetRating() => Ratings;
-        public void GetRatingId(int id) => Ratings.FirstOrDefault(c => c.Id == id);
+        public async Task RemoveRating(int id) => ratings.RemoveAll(c => c.Id == id);
+        public async Task<List<Rating>> GetRating() => ratings;
+        public async Task GetRatingId(int id) => ratings.FirstOrDefault(c => c.Id == id);
 
 
 
-        public void AddSeries(Series series) => Series.Add(series);
-        public void UpdateSeries(Series updated)
+        public async Task AddSeries(Series series) => this.series.Add(series);
+        public async Task UpdateSeries(Series updated)
         {
-            var series = Series.FirstOrDefault(c =>c.Id == updated.Id);
+            var series = this.series.FirstOrDefault(c => c.Id == updated.Id);
             if(series != null)
             {
                 series.Name = updated.Name;
@@ -118,23 +123,23 @@ namespace KinoPoisk.DB
                 series.Content = updated.Content;
             }
         }
-        public void RemoveSeries(int id) => Series.RemoveAll(c => c.Id ==id);
-        public List<Series> GetSeries() => Series;
-        public void GetSeriesId(int id) => Series.FirstOrDefault(s => s.Id == id);
+        public async Task RemoveSeries(int id) => series.RemoveAll(c => c.Id ==id);
+        public async Task<List<Series>> GetSeries() => series;
+        public async Task GetSeriesId(int id) => series.FirstOrDefault(s => s.Id == id);
 
 
-        public void AddTypeContent(TypeContent typeContent) => TypeContents.Add(typeContent);
-        public void UpdateTypeContent(TypeContent updated) 
+        public async Task AddTypeContent(TypeContent typeContent) => typeContents.Add(typeContent);
+        public async Task UpdateTypeContent(TypeContent updated) 
         {
-            var typeContent = TypeContents.FirstOrDefault(c => c.Id == updated.Id);
+            var typeContent = typeContents.FirstOrDefault(c => c.Id == updated.Id);
             if(typeContent != null)
             {
                 typeContent.Title = updated.Title;
             }
         }
-        public void RemoveTypeContent(int id) => TypeContents.RemoveAll(c => c.Id == id);
-        public List<TypeContent> GetTypeContent() => TypeContents;
-        public void GetTypeContentId(int id) => TypeContents.FirstOrDefault(c => c.Id == id);
+        public async Task RemoveTypeContent(int id) => typeContents.RemoveAll(c => c.Id == id);
+        public async Task<List<TypeContent>> GetTypeContent() => typeContents;
+        public async Task GetTypeContentId(int id) => typeContents.FirstOrDefault(c => c.Id == id);
 
 
 
@@ -145,10 +150,10 @@ namespace KinoPoisk.DB
 
 
         private List<User> Users = new();
-        public void RemoveUser(int id) => Users.RemoveAll(u => u.Id == id);
-        public User GetUserById(int id) => Users.FirstOrDefault(u => u.Id == id);
-        public List<User> GetUsers() => Users;
-        public User Authenticate(string login, string password)
+        public async Task RemoveUser(int id) => Users.RemoveAll(u => u.Id == id);
+        public async Task<User> GetUserById(int id) => Users.FirstOrDefault(u => u.Id == id);
+        public async Task<List<User>> GetUsers() => Users;
+        public async Task<User> Authenticate(string login, string password)
         {
             return Users.FirstOrDefault(u => u.Login == login && u.Password == password);
         }
@@ -169,7 +174,7 @@ namespace KinoPoisk.DB
             Users.Add(user);
             return true;
         }
-        public void InitAdmin()
+        public async Task InitAdmin()
         {
             if (!Users.Any(u => u.IsAdmin))
             {

@@ -3,7 +3,7 @@ namespace KinoPoisk
 {
     public partial class App : Application
     {
-        public static DBALL db { get; private set; } = new DBALL();
+        public DBALL db  = new DBALL();
 
         public App()
         {

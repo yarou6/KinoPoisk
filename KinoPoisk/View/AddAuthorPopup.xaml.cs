@@ -1,34 +1,34 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
+using System.Threading.Tasks;
 namespace KinoPoisk.View;
 public partial class AddAuthorPopup : Popup
 {
-    public event Action<DB.Author>? AuthorAdded;
-
-    public AddAuthorPopup()
+    private DBALL db;
+    public AddAuthorPopup(DBALL database)
     {
         InitializeComponent();
+        db = database;
     }
 
-    private void SaveAuthor(object sender, EventArgs e)
+    private async void SaveAuthor(object sender, EventArgs e)
     {
         string title = TitleEntry.Text?.Trim();
         string country = CountryEntry.Text?.Trim();
 
         if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(country))
         {
-            Application.Current.MainPage.DisplayAlert("Ошибка", "Заполните все поля", "ОК");
+            await Application.Current.MainPage.DisplayAlert("Ошибка", "Заполните все поля", "ОК");
             return;
         }
 
-        var author = new DB.Author
+        var author = new Author
         {
-            Id = 0, 
             Title = title,
             Country = country
         };
 
-        AuthorAdded?.Invoke(author); 
+        await db.AddAuthor(author);
         Close();
     }
 

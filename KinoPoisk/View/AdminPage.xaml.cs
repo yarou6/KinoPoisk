@@ -1,4 +1,5 @@
 using KinoPoisk.DB;
+using System.Threading.Tasks;
 namespace KinoPoisk.View;
 public partial class AdminPage : ContentPage
 {
@@ -13,10 +14,12 @@ public partial class AdminPage : ContentPage
         LoadUsers();
     }
 
-    private void LoadUsers()
+    private async void LoadUsers()
     {
         //Не показываем себя xdxdxd
-        UsersListView.ItemsSource = db.GetUsers().Where(u => u.Id != currentUser.Id).ToList();
+        var list = await db.GetUsers();
+        UsersListView.ItemsSource = list.Where(u => u.Id != currentUser.Id).ToList();
+
     }
 
     private void Selected(object sender, SelectedItemChangedEventArgs e)
@@ -41,7 +44,7 @@ public partial class AdminPage : ContentPage
 
     private async void AddContent(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AddContentPage());
+        await Navigation.PushAsync(new AddContentPage(db));
     }
 
   

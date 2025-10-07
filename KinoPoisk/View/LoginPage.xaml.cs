@@ -25,7 +25,7 @@ namespace KinoPoisk.View
                 return;
             }
 
-            var user = db.Authenticate(login, password);
+            var user = await db.Authenticate(login, password);
             if (user != null)
             {
                 if (user.IsAdmin)
