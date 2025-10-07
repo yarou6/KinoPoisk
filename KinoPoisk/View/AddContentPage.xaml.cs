@@ -25,16 +25,15 @@ public partial class AddContentPage : ContentPage
     private async void AddAuthor(object sender, EventArgs e)
     {
         var popup = new AddAuthorPopup(db);
-        var list = await db.GetAuthors();
-        //Task.WaitAll();
-        for (int i = 0; i < list.Count; i++)
-            AuthorPicker.Items.Add($"{list[i].Title} ({list[i].Country})");
-        //popup.AuthorAdded += async (author) =>
-        //{
-        //    AuthorPicker.Items.Add($"{author.Title} ({author.Country})");
-        //    AuthorPicker.SelectedIndex = AuthorPicker.Items.Count - 1;
-        //};
 
         await this.ShowPopupAsync(popup);
+
+
+        var list = await db.GetAuthors();
+        
+        AuthorPicker.Items.Clear();
+
+        for (int i = 0; i < list.Count; i++)
+            AuthorPicker.Items.Add($"{list[i].Title} ({list[i].Country})");
     }
 }

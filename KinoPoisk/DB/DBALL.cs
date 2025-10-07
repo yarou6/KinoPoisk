@@ -55,7 +55,12 @@ namespace KinoPoisk.DB
         public async Task AddAuthor(Author author)
         {
             await Task.Delay(1000);
-            //Сделать id
+
+            if (author.Id != 0)
+                author.Id = authors.Max(с => с.Id) + 1;
+            else
+                author.Id = 0;
+
             authors.Add(author);
         }
         public async Task UpdateAuthor(Author updated) 
