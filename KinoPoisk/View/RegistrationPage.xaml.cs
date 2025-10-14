@@ -24,7 +24,7 @@ namespace KinoPoisk.View
                 return;
             }
 
-            bool success = db.Register(login, password, isAdmin: false, hasSubscription);
+            bool success = await db.Register(login, password, isAdmin: false, hasSubscription);
             if (success)
             {
                 await DisplayAlert("Успех", "Регистрация выполнена", "ОК");

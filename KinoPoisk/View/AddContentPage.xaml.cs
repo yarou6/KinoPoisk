@@ -1,5 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
+using Microsoft.Maui.Graphics.Text;
+using System.Threading.Tasks;
 
 namespace KinoPoisk.View;
 
@@ -12,9 +14,25 @@ public partial class AddContentPage : ContentPage
         db = database;
     }
 
-    private void Save(object sender, EventArgs e)
+    private async Task Save(object sender, EventArgs e)
     {
+        //TypeContent type = TypePicker.SelectedItem.;
+        var PostType = await db.GetTypeContentId(TypePicker.SelectedIndex);
+        var PostAuthor = await db.GetAuthorId(AuthorPicker.SelectedIndex);
+        int.TryParse(AgeEntry.Text.Trim(), out int age);
+        var content = new Content
+        {
+            Name = NameEntry.Text.Trim(),
+            Description = DescriptionEditor.Text.Trim(),
+            IdTypeContent = PostType.Id,
+            TypeContent = PostType,
+            Age = age,
+            IdAuthor = PostAuthor.Id,
+            Author = PostAuthor,
+            //Data = ,
+            //CountSeries = ,
 
+        };
     }
 
     private void LoadImage(object sender, EventArgs e)

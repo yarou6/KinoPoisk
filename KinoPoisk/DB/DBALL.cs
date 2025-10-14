@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace KinoPoisk.DB
 {
     public class DBALL
@@ -20,9 +19,14 @@ namespace KinoPoisk.DB
 
         List<TypeContent> typeContents = new();
 
-        public async Task AddContent(Content content) => contents.Add(content);
+        public async Task AddContent(Content content)
+        { 
+            await Task.Delay(1000);  
+            contents.Add(content);
+        }
         public async Task UpdateContent(Content updated)
         {
+            await Task.Delay(1000);
             var content = contents.FirstOrDefault(c => c.Id == updated.Id);
             if(content != null)
             {
@@ -46,9 +50,22 @@ namespace KinoPoisk.DB
                 content.Age = updated.Age;
             }
         }
-        public async Task RemoveContent(int id) => contents.RemoveAll(c => c.Id == id);
-        public async Task<List<Content>> GetContents() => contents;
-        public async Task GetContentId(int id) => contents.FirstOrDefault(c => c.Id == id);
+        public async Task RemoveContent(int id) 
+        {
+            await Task.Delay(1000);
+            contents.RemoveAll(c => c.Id == id);
+        }
+        public async Task<List<Content>> GetContents() 
+        {
+            await Task.Delay(1000); 
+            return new List<Content>(contents);
+        } 
+        public async Task<Content> GetContentId(int id) 
+        { 
+            await Task.Delay(1000); 
+            var obj = contents.FirstOrDefault(c => c.Id == id);
+            return obj;
+        }
 
 
 
@@ -63,8 +80,9 @@ namespace KinoPoisk.DB
 
             authors.Add(author);
         }
-        public async Task UpdateAuthor(Author updated) 
+        public async Task UpdateAuthor(Author updated)
         {
+            await Task.Delay(1000);
             var author = authors.FirstOrDefault(c => c.Id == updated.Id);
             if(author != null)
             {
@@ -72,32 +90,68 @@ namespace KinoPoisk.DB
                 author.Country = updated.Country;
             }
         }
-        public async Task RemoveAuthor(int id) => authors.RemoveAll(c => c.Id == id);
-        public async Task<List<Author>> GetAuthors() => authors;
-        public async Task GetAuthorId(int id) => authors.FirstOrDefault(c => c.Id == id); 
-
-
-
-
-        public async Task AddGenre(Gerne genre) => gernes.Add(genre);
-        public async Task UpdateGerne(Gerne updated) 
+        public async Task RemoveAuthor(int id) 
         { 
+            await Task.Delay(1000);  
+            authors.RemoveAll(c => c.Id == id); 
+        }
+        public async Task<List<Author>> GetAuthors() 
+        { 
+            await Task.Delay(1000);
+            return authors; 
+        }
+        public async Task<Author> GetAuthorId(int id) 
+        { 
+            await Task.Delay(1000);
+            var obj = authors.FirstOrDefault(c => c.Id == id);
+            return obj;
+        }
+
+
+
+
+        public async Task AddGenre(Gerne genre) 
+        {
+            await Task.Delay(1000);
+            gernes.Add(genre);
+        }
+        public async Task UpdateGerne(Gerne updated)
+        {
+            await Task.Delay(1000);
             var genre = gernes.FirstOrDefault(c => c.Id == updated.Id);
             if (genre != null)
             {
                 genre.Title = updated.Title;
             }
         }
-        public async Task RemoveGerne(int id) => gernes.RemoveAll(c => c.Id == id);
-        public async Task<List<Gerne>> GetGernes() => gernes;
-        public async Task GetGerneId(int id) => gernes.FirstOrDefault(c => c.Id == id);
+        public async Task RemoveGerne(int id)
+        {
+            await Task.Delay(1000); 
+            gernes.RemoveAll(c => c.Id == id); 
+        }
+        public async Task<List<Gerne>> GetGernes() 
+        { 
+            await Task.Delay(1000); 
+            return new List<Gerne>( gernes); 
+        }
+        public async Task<Gerne> GetGerneId(int id)
+        {
+            await Task.Delay(1000);
+            var obj = gernes.FirstOrDefault(c => c.Id == id);
+            return obj;
+        }
 
 
 
 
-        public async Task AddRating(Rating rating) => ratings.Add(rating);
+        public async Task AddRating(Rating rating) 
+        { 
+            await Task.Delay(1000); 
+            ratings.Add(rating);
+        }
         public async Task UpdateRating(Rating updated)
         {
+            await Task.Delay(1000);
             var rating = ratings.FirstOrDefault(c => c.Id == updated.Id);
             if(rating != null)
             {
@@ -105,15 +159,33 @@ namespace KinoPoisk.DB
                 rating.Feedback = updated.Feedback;
             }
         }
-        public async Task RemoveRating(int id) => ratings.RemoveAll(c => c.Id == id);
-        public async Task<List<Rating>> GetRating() => ratings;
-        public async Task GetRatingId(int id) => ratings.FirstOrDefault(c => c.Id == id);
+        public async Task RemoveRating(int id)
+        { 
+            await Task.Delay(1000); 
+            ratings.RemoveAll(c => c.Id == id);
+        }
+        public async Task<List<Rating>> GetRating() 
+        {
+            await Task.Delay(1000);
+            return new List<Rating>( ratings);
+        }
+        public async Task<Rating> GetRatingId(int id) 
+        { 
+            await Task.Delay(1000);
+            var obj = ratings.FirstOrDefault(c => c.Id == id);
+            return obj;
+        }
 
 
 
-        public async Task AddSeries(Series series) => this.series.Add(series);
+        public async Task AddSeries(Series series) 
+        {
+            await Task.Delay(1000);  
+            this.series.Add(series); 
+        }
         public async Task UpdateSeries(Series updated)
         {
+            await Task.Delay(1000);
             var series = this.series.FirstOrDefault(c => c.Id == updated.Id);
             if(series != null)
             {
@@ -128,23 +200,55 @@ namespace KinoPoisk.DB
                 series.Content = updated.Content;
             }
         }
-        public async Task RemoveSeries(int id) => series.RemoveAll(c => c.Id ==id);
-        public async Task<List<Series>> GetSeries() => series;
-        public async Task GetSeriesId(int id) => series.FirstOrDefault(s => s.Id == id);
-
-
-        public async Task AddTypeContent(TypeContent typeContent) => typeContents.Add(typeContent);
-        public async Task UpdateTypeContent(TypeContent updated) 
+        public async Task RemoveSeries(int id)
         {
+            await Task.Delay(1000); 
+            series.RemoveAll(c => c.Id ==id);
+        }
+        public async Task<List<Series>> GetSeries() 
+        {
+            await Task.Delay(1000);
+            return new List<Series>( series); 
+        }
+        public async Task<Series> GetSeriesId(int id)
+        { 
+            await Task.Delay(1000);
+            var obj = series.FirstOrDefault(s => s.Id == id);
+            return obj;
+        }
+
+
+        public async Task AddTypeContent(TypeContent typeContent)
+        { 
+            await Task.Delay(1000); 
+            typeContents.Add(typeContent);
+        }
+        public async Task UpdateTypeContent(TypeContent updated)
+        {
+            await Task.Delay(1000);
             var typeContent = typeContents.FirstOrDefault(c => c.Id == updated.Id);
             if(typeContent != null)
             {
                 typeContent.Title = updated.Title;
             }
         }
-        public async Task RemoveTypeContent(int id) => typeContents.RemoveAll(c => c.Id == id);
-        public async Task<List<TypeContent>> GetTypeContent() => typeContents;
-        public async Task GetTypeContentId(int id) => typeContents.FirstOrDefault(c => c.Id == id);
+        public async Task RemoveTypeContent(int id)
+        {
+            await Task.Delay(1000);
+            typeContents.RemoveAll(c => c.Id == id);
+        }
+        public async Task<List<TypeContent>> GetTypeContent()
+        {
+            await Task.Delay(1000);
+            return new List<TypeContent>(typeContents);
+        }
+        public async Task<TypeContent> GetTypeContentId(int id)
+        {
+            await Task.Delay(1000);
+            var obj = typeContents.FirstOrDefault(s => s.Id == id);
+            return obj;
+
+        }
 
 
 
@@ -153,37 +257,53 @@ namespace KinoPoisk.DB
 
 
 
-
-        private List<User> Users = new();
-        public async Task RemoveUser(int id) => Users.RemoveAll(u => u.Id == id);
-        public async Task<User> GetUserById(int id) => Users.FirstOrDefault(u => u.Id == id);
-        public async Task<List<User>> GetUsers() => Users;
+        private List<User> users = new();
+        public async Task RemoveUser(int id) 
+        { 
+            await Task.Delay(1000); 
+            users.RemoveAll(u => u.Id == id); 
+        }
+        public async Task<User> GetUserById(int id) 
+        {
+            await Task.Delay(1000);
+            var obj = users.FirstOrDefault(u => u.Id == id);
+            return obj;
+        }
+        public async Task<List<User>> GetUsers() 
+        { 
+            await Task.Delay(1000);
+            return new List<User>( users); 
+        }
         public async Task<User> Authenticate(string login, string password)
         {
-            return Users.FirstOrDefault(u => u.Login == login && u.Password == password);
+            await Task.Delay(1000);
+            var obj = users.FirstOrDefault(u => u.Login == login && u.Password == password);
+            return obj;
         }
-        public bool Register(string login, string password, bool isAdmin = false, bool hasSubscription = false)
+        public async Task<bool> Register(string login, string password, bool isAdmin = false, bool hasSubscription = false)
         {
-            if (Users.Any(u => u.Login == login))
+            await Task.Delay(1000);
+            if (users.Any(u => u.Login == login))
                 return false;
 
             var user = new User
             {
-                Id = Users.Count > 0 ? Users.Max(u => u.Id) + 1 : 1,
+                Id = users.Count > 0 ? users.Max(u => u.Id) + 1 : 1,
                 Login = login,
                 Password = password,
                 IsAdmin = isAdmin,
                 HasSubscription = hasSubscription
             }; 
 
-            Users.Add(user);
+            users.Add(user);
             return true;
         }
         public async Task InitAdmin()
         {
-            if (!Users.Any(u => u.IsAdmin))
+            await Task.Delay(1000);
+            if (!users.Any(u => u.IsAdmin))
             {
-                Users.Add(new User
+                users.Add(new User
                 {
                     Id = 1,
                     Login = "admin",
@@ -192,7 +312,7 @@ namespace KinoPoisk.DB
                     HasSubscription = true
                 });
 
-                Users.Add(new User
+                users.Add(new User
                 {
                     Id = 2,
                     Login = "123",
