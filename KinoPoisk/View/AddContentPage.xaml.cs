@@ -14,25 +14,32 @@ public partial class AddContentPage : ContentPage
         db = database;
     }
 
-    private async Task Save(object sender, EventArgs e)
+    private async void Save(object sender, EventArgs e)
     {
         //TypeContent type = TypePicker.SelectedItem.;
         var PostType = await db.GetTypeContentId(TypePicker.SelectedIndex);
         var PostAuthor = await db.GetAuthorId(AuthorPicker.SelectedIndex);
         int.TryParse(AgeEntry.Text.Trim(), out int age);
-        var content = new Content
+        Content content = new Content()
         {
             Name = NameEntry.Text.Trim(),
             Description = DescriptionEditor.Text.Trim(),
-            IdTypeContent = PostType.Id,
-            TypeContent = PostType,
+            //IdTypeContent = PostType.Id,
+            //TypeContent = PostType,
             Age = age,
             IdAuthor = PostAuthor.Id,
             Author = PostAuthor,
             //Data = ,
             //CountSeries = ,
+            //IdGerne = ,
+            //Gerne = ,
+            //Subscription = 
 
         };
+        await db.AddContent(content);
+        await DisplayAlert("Победа", $"{content.Name} Добавлен","Ок");
+
+
     }
 
     private void LoadImage(object sender, EventArgs e)
@@ -48,7 +55,7 @@ public partial class AddContentPage : ContentPage
 
 
         var list = await db.GetAuthors();
-        
+
         AuthorPicker.Items.Clear();
 
         for (int i = 0; i < list.Count; i++)

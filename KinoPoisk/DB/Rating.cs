@@ -11,5 +11,7 @@ namespace KinoPoisk.DB
         public int Id { get; set; }
         public int Stars { get; set; }
         public string Feedback { get; set; }
+        public int IdContent {get; set; }
+        public Content Content { get; set; }
     }
 }

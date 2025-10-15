@@ -33,9 +33,6 @@ namespace KinoPoisk.DB
                 content.IdTypeContent = updated.IdTypeContent;
                 content.TypeContent = updated.TypeContent;
 
-                content.IdRating = updated.IdRating;
-                content.Rating = updated.Rating;
-
                 content.IdGerne = updated.IdGerne;
                 content.Gerne = updated.Gerne;
 

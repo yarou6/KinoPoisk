@@ -14,10 +14,6 @@ namespace KinoPoisk.DB
 
         public TypeContent TypeContent { get; set; }
 
-        public int IdRating { get; set; }
-
-        public Rating Rating { get; set; }
-
         public bool Subscription { get; set; }
 
         public string Name { get; set; }
