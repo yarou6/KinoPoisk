@@ -18,6 +18,11 @@ namespace KinoPoisk.DB
         List<Series> series = new();
 
         List<TypeContent> typeContents = new();
+        int aecontent = new();
+        int aeauthor = new();
+        int aegerne = new();
+        int aerating = new();
+        int aeseries = new();
 
         public async Task AddContent(Content content)
         { 

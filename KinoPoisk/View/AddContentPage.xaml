@@ -23,35 +23,21 @@
             <Editor x:Name="DescriptionEditor" HeightRequest="100"/>
 
             <Label Text="Тип контента:" TextColor="White"/>
-            <Picker x:Name="TypePicker" Title="Выберите тип">
-                <Picker.Items>
-                    <x:String>Фильм</x:String>
-                    <x:String>Сериал</x:String>
-                </Picker.Items>
-            </Picker>
+            <Picker x:Name="TypePicker" Title="Выберите тип"/>
+            <Button Text="Добавить тип" Clicked="AddType"/>
 
             <Label Text="Жанр:" TextColor="White"/>
-            <CollectionView x:Name="GenreCollection" SelectionMode="Multiple">
-                <CollectionView.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Боевик</x:String>
-                        <x:String>Комедия</x:String>
-                        <x:String>Драма</x:String>
-                        <x:String>Фантастика</x:String>
-                        <x:String>Ужасы</x:String>
-                        <x:String>Мелодрама</x:String>
-                        <x:String>Документальный</x:String>
-                    </x:Array>
-                </CollectionView.ItemsSource>
+            <CollectionView x:Name="GenreCollection">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Orientation="Horizontal" Padding="5">
                             <CheckBox IsChecked="{Binding .}" />
-                            <Label Text="{Binding .}" TextColor="White" VerticalOptions="Center"/>
+                            <Label Text="{Binding Title}" TextColor="White" VerticalOptions="Center"/>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Button Text="Добавить жанр" Clicked="AddGerne"/>
 
             <Label Text="Автор:" TextColor="White"/>
             <Picker x:Name="AuthorPicker"/>

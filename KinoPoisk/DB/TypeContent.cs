@@ -12,6 +12,5 @@ namespace KinoPoisk.DB
 
         public string Title { get; set; }
 
-
     }
 }

@@ -12,6 +12,8 @@ namespace KinoPoisk.View
         {
             InitializeComponent();
             db = database;
+            // путь /storage/emulated/0/Docments
+            File.Create("");
         }
 
         private async void Login(object sender, EventArgs e)

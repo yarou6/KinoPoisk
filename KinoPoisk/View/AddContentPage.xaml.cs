@@ -19,20 +19,22 @@ public partial class AddContentPage : ContentPage
         //TypeContent type = TypePicker.SelectedItem.;
         var PostType = await db.GetTypeContentId(TypePicker.SelectedIndex);
         var PostAuthor = await db.GetAuthorId(AuthorPicker.SelectedIndex);
+        Gerne gerne = (Gerne)GenreCollection.SelectedItem;
+        var PostGerne = await db.GetGerneId(gerne.Id);
         int.TryParse(AgeEntry.Text.Trim(), out int age);
         Content content = new Content()
         {
             Name = NameEntry.Text.Trim(),
             Description = DescriptionEditor.Text.Trim(),
-            //IdTypeContent = PostType.Id,
-            //TypeContent = PostType,
+            IdTypeContent = PostType.Id,
+            TypeContent = PostType,
             Age = age,
             IdAuthor = PostAuthor.Id,
             Author = PostAuthor,
             //Data = ,
             //CountSeries = ,
-            //IdGerne = ,
-            //Gerne = ,
+            IdGerne = PostGerne.Id,
+            Gerne = PostGerne,
             //Subscription = 
 
         };
@@ -60,5 +62,32 @@ public partial class AddContentPage : ContentPage
 
         for (int i = 0; i < list.Count; i++)
             AuthorPicker.Items.Add($"{list[i].Title} ({list[i].Country})");
+    }
+
+    private async void AddType(object sender, EventArgs e)
+    {
+        var popup = new AddTypePopup(db);
+
+        await this.ShowPopupAsync(popup);
+
+        var list = await db.GetTypeContent();
+
+        TypePicker.Items.Clear();
+
+        for (int i = 0; i < list.Count; i++)
+            TypePicker.Items.Add(list[i].Title);
+
+
+    }
+
+    private async void AddGerne(object sender, EventArgs e)
+    {
+        var popup = new AddGernePopup(db);
+
+        await this.ShowPopupAsync(popup);
+        var list = await db.GetGernes();
+        GenreCollection.ItemsSource = list;
+
+
     }
 }
