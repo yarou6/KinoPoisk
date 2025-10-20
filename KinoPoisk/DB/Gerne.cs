@@ -12,4 +12,10 @@ namespace KinoPoisk.DB
         public string Title { get; set; }
 
     }
+    
+    public class GerneIs
+    {
+        public Gerne Gerne { get; set; }
+        public bool IsChecked {  get; set; }
+    }
 }

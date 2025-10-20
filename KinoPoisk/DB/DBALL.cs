@@ -5,24 +5,67 @@ using System.Text;
 using System.Threading.Tasks;
 namespace KinoPoisk.DB
 {
+    public class DBDTO
+    {
+        public List<Content> contents { get; set; }
+        public List<Author> authors { get; set; }
+        public List<Gerne> gernes { get; set; }
+        public List<Rating> ratings { get; set; }
+        public List<Series> series { get; set; }
+        public List<TypeContent> typeContents { get; set; }
+        public int aecontent { get; set; }
+        public int aeauthor { get; set; }
+        public int aegerne { get; set; }
+        public int aerating { get; set; }
+        public int aeseries { get; set; }
+        public int aetypecontents { get; set; }
+    }
     public class DBALL
     {
         List<Content> contents = new();
-
         List<Author> authors = new();
-
         List<Gerne> gernes = new();
-
         List<Rating> ratings = new();
-
         List<Series> series = new();
-
         List<TypeContent> typeContents = new();
-        int aecontent = new();
-        int aeauthor = new();
-        int aegerne = new();
-        int aerating = new();
-        int aeseries = new();
+        int aecontent = 0;
+        int aeauthor = 0;
+        int aegerne = 0;
+        int aerating = 0;
+        int aeseries = 0;
+        int aetypecontents = 0;
+        public static implicit operator DBDTO(DBALL dBALL)
+        {
+            var read = new DBDTO();
+            read.contents = dBALL.contents;
+            read.authors = dBALL.authors;
+            read.gernes = dBALL.gernes;
+            read.ratings= dBALL.ratings;
+            read.series = dBALL.series; 
+            read.typeContents = dBALL.typeContents;
+            read.aecontent = dBALL.aecontent;
+            read.aeauthor = dBALL.aeauthor;
+            read.aegerne = dBALL.aegerne;
+            read.aerating = dBALL.aerating;
+            read.aeseries = dBALL.aeseries;
+            read.aetypecontents = dBALL.aetypecontents;
+            return read;
+        }
+        public static void ConverterOn(DBALL dBALL, DBDTO dBDTO)
+        {
+            dBALL.contents = dBDTO.contents;
+            dBALL.authors = dBDTO.authors;
+            dBALL.gernes = dBDTO.gernes;
+            dBALL.ratings= dBDTO.ratings;
+            dBALL.series = dBDTO.series; 
+            dBALL.typeContents = dBDTO.typeContents;
+            dBALL.aecontent = dBDTO.aecontent;
+            dBALL.aeauthor = dBDTO.aeauthor;
+            dBALL.aegerne = dBDTO.aegerne;
+            dBALL.aerating = dBDTO.aerating;
+            dBALL.aeseries = dBDTO.aeseries;
+            dBALL.aetypecontents = dBDTO.aetypecontents;
+        }
 
         public async Task AddContent(Content content)
         { 

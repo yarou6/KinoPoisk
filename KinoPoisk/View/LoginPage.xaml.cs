@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Maui.Controls;
 using KinoPoisk.DB;
+using System.Text.Json;
 
 namespace KinoPoisk.View
 {
@@ -13,7 +14,16 @@ namespace KinoPoisk.View
             InitializeComponent();
             db = database;
             // путь /storage/emulated/0/Docments
-            File.Create("");
+            //File.Create("/storage/emulated/0/Documents/test.txt");
+            string fr = File.ReadAllText("/storage/emulated/0/Documents/test.txt");
+
+            DBDTO dbDTO=null;
+            try {  dbDTO = JsonSerializer.Deserialize<DBDTO>(fr); } catch (Exception e) { }
+
+            if (dbDTO == null) return;
+
+            DBALL.ConverterOn(db, dbDTO);
+
         }
 
         private async void Login(object sender, EventArgs e)

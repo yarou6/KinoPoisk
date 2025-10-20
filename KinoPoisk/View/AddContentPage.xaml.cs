@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
 using Microsoft.Maui.Graphics.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace KinoPoisk.View;
@@ -8,6 +9,7 @@ namespace KinoPoisk.View;
 public partial class AddContentPage : ContentPage
 {
     private DBALL db;
+    public GerneIs GerneIs { get; set; }
     public AddContentPage(DBALL database)
     {
         InitializeComponent();
@@ -40,7 +42,8 @@ public partial class AddContentPage : ContentPage
         };
         await db.AddContent(content);
         await DisplayAlert("Победа", $"{content.Name} Добавлен","Ок");
-
+        try { File.WriteAllText(FileSystem.Current.AppDataDirectory + "/test.txt", JsonSerializer.Serialize((DBDTO)db));} catch(Exception ex) { }
+        
 
     }
 
@@ -86,6 +89,7 @@ public partial class AddContentPage : ContentPage
 
         await this.ShowPopupAsync(popup);
         var list = await db.GetGernes();
+        
         GenreCollection.ItemsSource = list;
 
 
