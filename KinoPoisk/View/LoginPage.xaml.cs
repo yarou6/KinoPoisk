@@ -15,14 +15,7 @@ namespace KinoPoisk.View
             db = database;
             // путь /storage/emulated/0/Docments
             //File.Create("/storage/emulated/0/Documents/test.txt");
-            string fr = File.ReadAllText("/storage/emulated/0/Documents/test.txt");
-
-            DBDTO dbDTO=null;
-            try {  dbDTO = JsonSerializer.Deserialize<DBDTO>(fr); } catch (Exception e) { }
-
-            if (dbDTO == null) return;
-
-            DBALL.ConverterOn(db, dbDTO);
+            
 
         }
 
@@ -37,7 +30,7 @@ namespace KinoPoisk.View
                 return;
             }
 
-            var user = await db.Authenticate(login, password);
+            var user = await db.GetDB().Result.Authenticate(login, password);
             if (user != null)
             {
                 if (user.IsAdmin)

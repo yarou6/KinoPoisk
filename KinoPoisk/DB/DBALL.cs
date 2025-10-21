@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 namespace KinoPoisk.DB
 {
@@ -34,6 +35,7 @@ namespace KinoPoisk.DB
         int aerating = 0;
         int aeseries = 0;
         int aetypecontents = 0;
+        private DBALL dBALL;
         public static implicit operator DBDTO(DBALL dBALL)
         {
             var read = new DBDTO();
@@ -67,6 +69,32 @@ namespace KinoPoisk.DB
             dBALL.aetypecontents = dBDTO.aetypecontents;
         }
 
+        public async Task<DBALL> GetDB()
+        {
+            //await Task.Delay(1000);
+            if (dBALL == null)
+            {
+                dBALL = this;
+                if(File.Exists(FileSystem.Current.AppDataDirectory + "/test.txt"))
+                    ReadFiles();
+                
+            }
+            return dBALL;
+
+        }
+        public async void ReadFiles()
+        {
+            //await Task.Delay(1000);
+            string fr = File.ReadAllText(FileSystem.Current.AppDataDirectory + "/test.txt");
+
+            DBDTO dbDTO = null;
+            try { dbDTO = JsonSerializer.Deserialize<DBDTO>(fr); } catch (Exception e) { }
+
+            if (dbDTO == null) return;
+
+            ConverterOn(this, dbDTO);
+        }
+
         public async Task AddContent(Content content)
         { 
             await Task.Delay(1000);  
@@ -81,9 +109,7 @@ namespace KinoPoisk.DB
                 content.IdTypeContent = updated.IdTypeContent;
                 content.TypeContent = updated.TypeContent;
 
-                content.IdGerne = updated.IdGerne;
-                content.Gerne = updated.Gerne;
-
+                content.Gernes = updated.Gernes;
                 content.IdAuthor = updated.IdAuthor;
                 content.Author = updated.Author;
 
@@ -93,6 +119,13 @@ namespace KinoPoisk.DB
                 content.Data = updated.Data;
                 content.CountSeries = updated.CountSeries;
                 content.Age = updated.Age;
+
+                foreach (Gerne genre in content.Gernes)
+                {
+                    if (!genre.Contents.Contains(content))
+                        genre.Contents.Add(content);
+                    await UpdateGerne(genre);
+                }
             }
         }
         public async Task RemoveContent(int id) 

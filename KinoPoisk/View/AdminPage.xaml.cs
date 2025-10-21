@@ -17,7 +17,7 @@ public partial class AdminPage : ContentPage
     private async void LoadUsers()
     {
         //Не показываем себя xdxdxd
-        var list = await db.GetUsers();
+        var list = await db.GetDB().Result.GetUsers();
         UsersListView.ItemsSource = list.Where(u => u.Id != currentUser.Id).ToList();
 
     }
@@ -27,18 +27,18 @@ public partial class AdminPage : ContentPage
         selectedUser = e.SelectedItem as User;
     }
 
-    private void Delete(object sender, EventArgs e)
+    private async void Delete(object sender, EventArgs e)
     {
         if (selectedUser != null)
         {
-            db.RemoveUser(selectedUser.Id);
+            await db.GetDB().Result.RemoveUser(selectedUser.Id);
             LoadUsers();
-            DisplayAlert("Удалено", $"Пользователь {selectedUser.Login} удалён", "ОК");
+            await DisplayAlert("Удалено", $"Пользователь {selectedUser.Login} удалён", "ОК");
             selectedUser = null;
         }
         else
         {
-            DisplayAlert("Ошибка", "Выберите пользователя для удаления", "ОК");
+            await DisplayAlert("Ошибка", "Выберите пользователя для удаления", "ОК");
         }
     }
 

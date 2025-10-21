@@ -11,6 +11,7 @@ namespace KinoPoisk.DB
         public int Id { get; set; }
         public string Title { get; set; }
 
+        public List<Content> Contents { get; set; }=new List<Content>();
     }
     
     public class GerneIs

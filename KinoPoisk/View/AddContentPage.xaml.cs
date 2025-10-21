@@ -9,7 +9,7 @@ namespace KinoPoisk.View;
 public partial class AddContentPage : ContentPage
 {
     private DBALL db;
-    public GerneIs GerneIs { get; set; }
+    public List<GerneIs> gerneIss {  get; set; } 
     public AddContentPage(DBALL database)
     {
         InitializeComponent();
@@ -19,10 +19,11 @@ public partial class AddContentPage : ContentPage
     private async void Save(object sender, EventArgs e)
     {
         //TypeContent type = TypePicker.SelectedItem.;
-        var PostType = await db.GetTypeContentId(TypePicker.SelectedIndex);
-        var PostAuthor = await db.GetAuthorId(AuthorPicker.SelectedIndex);
-        Gerne gerne = (Gerne)GenreCollection.SelectedItem;
-        var PostGerne = await db.GetGerneId(gerne.Id);
+        var PostType = await db.GetDB().Result.GetTypeContentId(TypePicker.SelectedIndex);
+        var PostAuthor = await db.GetDB().Result.GetAuthorId(AuthorPicker.SelectedIndex);
+        List<Gerne> gernes= gerneIss.Where(s => s.IsChecked).Select(s => s.Gerne).ToList();
+        
+
         int.TryParse(AgeEntry.Text.Trim(), out int age);
         Content content = new Content()
         {
@@ -33,14 +34,13 @@ public partial class AddContentPage : ContentPage
             Age = age,
             IdAuthor = PostAuthor.Id,
             Author = PostAuthor,
+            Gernes = gernes,
             //Data = ,
             //CountSeries = ,
-            IdGerne = PostGerne.Id,
-            Gerne = PostGerne,
             //Subscription = 
 
         };
-        await db.AddContent(content);
+        await db.GetDB().Result.AddContent(content);
         await DisplayAlert("Победа", $"{content.Name} Добавлен","Ок");
         try { File.WriteAllText(FileSystem.Current.AppDataDirectory + "/test.txt", JsonSerializer.Serialize((DBDTO)db));} catch(Exception ex) { }
         
@@ -59,7 +59,7 @@ public partial class AddContentPage : ContentPage
         await this.ShowPopupAsync(popup);
 
 
-        var list = await db.GetAuthors();
+        var list = await db.GetDB().Result.GetAuthors();
 
         AuthorPicker.Items.Clear();
 
@@ -73,7 +73,7 @@ public partial class AddContentPage : ContentPage
 
         await this.ShowPopupAsync(popup);
 
-        var list = await db.GetTypeContent();
+        var list = await db.GetDB().Result.GetTypeContent();
 
         TypePicker.Items.Clear();
 
@@ -88,9 +88,11 @@ public partial class AddContentPage : ContentPage
         var popup = new AddGernePopup(db);
 
         await this.ShowPopupAsync(popup);
-        var list = await db.GetGernes();
-        
-        GenreCollection.ItemsSource = list;
+        var list = await db.GetDB().Result.GetGernes();
+
+        gerneIss = list.Select(s => new GerneIs { Gerne = s, IsChecked = false }).ToList(); 
+
+        GenreCollection.ItemsSource = gerneIss;
 
 
     }

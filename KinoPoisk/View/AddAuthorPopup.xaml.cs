@@ -28,7 +28,7 @@ public partial class AddAuthorPopup : Popup
             Country = country
         };
 
-        await db.AddAuthor(author);
+        await db.GetDB().Result.AddAuthor(author);
         Close();
     }
 

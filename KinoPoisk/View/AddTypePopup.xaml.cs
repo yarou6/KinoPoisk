@@ -26,7 +26,7 @@ public partial class AddTypePopup : Popup
             Title = title,
         };
 
-        await db.AddTypeContent(type);
+        await db.GetDB().Result.AddTypeContent(type);
         Close();
     }
 

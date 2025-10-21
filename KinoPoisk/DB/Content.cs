@@ -20,9 +20,7 @@ namespace KinoPoisk.DB
 
         public string Description { get; set; }
 
-        public int IdGerne { get; set; }
-
-        public Gerne Gerne { get; set; }
+        public List<Gerne> Gernes { get; set; } = new List<Gerne>();
 
         public int Age { get; set; }
 
