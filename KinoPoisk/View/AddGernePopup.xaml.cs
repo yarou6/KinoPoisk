@@ -26,7 +26,8 @@ public partial class AddGernePopup : Popup
             Title = title,
         };
 
-        await db.GetDB().Result.AddGenre(genre);
+        var dbLocal = await db.GetDB();
+        await dbLocal.AddGenre(genre);
         Close();
     }
 

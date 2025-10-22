@@ -31,18 +31,18 @@
                     Margin="0,10,0,10">
             <CollectionView.ItemTemplate>
                     <DataTemplate>
-                    <Frame WidthRequest="100" HeightRequest="160" CornerRadius="10" Padding="5" Margin="5" BorderColor="#FF6600" BackgroundColor="#1E1E1E" HasShadow="True">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="MoviesSeries" NumberOfTapsRequired="1"/>
-                        </Frame.GestureRecognizers>
+                        <Frame WidthRequest="100" HeightRequest="160" CornerRadius="10" Padding="5" Margin="5" BorderColor="#FF6600" BackgroundColor="#1E1E1E" HasShadow="True">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="MoviesSeries" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
 
-                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                            <Image Source="{Binding Image}" HeightRequest="100" WidthRequest="80" Aspect="AspectFill"/>
-                            <Label Text="{Binding Name}" FontSize="10" TextColor="White" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
-                            <Label Text="{Binding RatingText}" FontSize="10" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Frame>
-                </DataTemplate>
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
+                                <Image Source="{Binding Image}" HeightRequest="100" WidthRequest="80" Aspect="AspectFill"/>
+                                <Label Text="{Binding Name}" FontSize="10" TextColor="White" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding RatingText}" FontSize="10" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </VerticalStackLayout>

@@ -17,7 +17,8 @@ public partial class AdminPage : ContentPage
     private async void LoadUsers()
     {
         //Не показываем себя xdxdxd
-        var list = await db.GetDB().Result.GetUsers();
+        var dbLocal = await db.GetDB();
+        var list = await dbLocal.GetUsers();
         UsersListView.ItemsSource = list.Where(u => u.Id != currentUser.Id).ToList();
 
     }
@@ -31,7 +32,8 @@ public partial class AdminPage : ContentPage
     {
         if (selectedUser != null)
         {
-            await db.GetDB().Result.RemoveUser(selectedUser.Id);
+            var dbLocal = await db.GetDB();
+            await dbLocal.RemoveUser(selectedUser.Id);
             LoadUsers();
             await DisplayAlert("Удалено", $"Пользователь {selectedUser.Login} удалён", "ОК");
             selectedUser = null;

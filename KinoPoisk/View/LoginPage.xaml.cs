@@ -30,7 +30,8 @@ namespace KinoPoisk.View
                 return;
             }
 
-            var user = await db.GetDB().Result.Authenticate(login, password);
+            var dbLocal = await db.GetDB();
+            var user = await dbLocal.Authenticate(login, password);
             if (user != null)
             {
                 if (user.IsAdmin)
