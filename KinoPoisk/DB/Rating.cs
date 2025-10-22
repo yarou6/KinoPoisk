@@ -9,7 +9,7 @@ namespace KinoPoisk.DB
     public class Rating
     {
         public int Id { get; set; }
-        public int Stars { get; set; }
+        public double Stars { get; set; }
         public string Feedback { get; set; }
         public int IdContent {get; set; }
         public Content Content { get; set; }

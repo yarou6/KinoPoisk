@@ -135,7 +135,7 @@ namespace KinoPoisk.DB
         }
         public async Task<List<Content>> GetContents() 
         {
-            await Task.Delay(1000); 
+            await Task.Delay(1000);
             return new List<Content>(contents);
         } 
         public async Task<Content> GetContentId(int id) 
@@ -397,6 +397,15 @@ namespace KinoPoisk.DB
                     Password = "123",
                     IsAdmin = false,
                     HasSubscription = true
+                });
+
+                users.Add(new User
+                {
+                    Id = 3,
+                    Login = "321",
+                    Password = "321",
+                    IsAdmin = false,
+                    HasSubscription = false
                 });
             }
         }

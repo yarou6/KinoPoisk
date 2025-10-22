@@ -32,6 +32,7 @@ namespace KinoPoisk.DB
 
         public int CountSeries { get; set; }
 
-       // public string Image { get; set; }
+        //Cделать
+        public string Image { get; set; }
     }
 }

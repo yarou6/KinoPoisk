@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KinoPoisk.View.MediaPage">
+    <NavigationPage.TitleView>
+        <Grid VerticalOptions="Center">
+            <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
+                <Label Text="KinoPoisk" FontSize="22" FontAttributes="Bold" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="15" VerticalOptions="Center"  HorizontalOptions="End" Grid.Column="1">
+                <Button Text="Profile" FontSize="22" TextColor="#FF6600"  BackgroundColor="Transparent" Clicked="Profile"/>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+    
+    
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Image x:Name="MovieImage" HeightRequest="200" Aspect="AspectFill"/>
+            <Label x:Name="MovieName" FontSize="24" TextColor="White"/>
+            <Label x:Name="MovieRating" FontSize="16" />
+            <Label x:Name="MovieDescription" FontSize="14" TextColor="Gray"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
