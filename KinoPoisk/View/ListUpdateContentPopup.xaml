@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="KinoPoisk.View.ListUpdateContentPopup"
+             Size="400,350">
+
+    <Border BackgroundColor="#222" StrokeShape="RoundRectangle 10" Padding="15">
+        <CarouselView PeekAreaInsets="100">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Frame>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="MoviesSeries" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
+                                <Image Source="{Binding Image}" HeightRequest="100" WidthRequest="80" Aspect="AspectFill"/>
+                                <Label Text="{Binding Name}" FontSize="10" TextColor="White" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding RatingText}" FontSize="10" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+    </Border>
+</toolkit:Popup>

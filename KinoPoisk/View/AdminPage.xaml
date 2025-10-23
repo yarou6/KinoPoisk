@@ -30,6 +30,7 @@
         <Label Text="Управление контентом" FontAttributes="Bold" Margin="0,20,0,0"/>
 
         <Button Text="Добавить фильм/Сериал" Clicked="AddContent"/>
+        <Button Text="Изменить фильм/Сериал" Clicked="UpdateContent"/>
 
     </VerticalStackLayout>
 

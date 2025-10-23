@@ -22,7 +22,7 @@ namespace KinoPoisk.DB
 
         public List<Gerne> Gernes { get; set; } = new List<Gerne>();
 
-        public int Age { get; set; }
+        public string Age { get; set; }
 
         public int IdAuthor { get; set; }
 

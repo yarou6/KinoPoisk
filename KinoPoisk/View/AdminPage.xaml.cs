@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
 using System.Threading.Tasks;
 namespace KinoPoisk.View;
@@ -49,5 +50,10 @@ public partial class AdminPage : ContentPage
         await Navigation.PushAsync(new AddContentPage(db));
     }
 
-  
+    private async void UpdateContent(object sender, EventArgs e)
+    {
+        var popup = new ListUpdateContentPopup(db);
+
+        await this.ShowPopupAsync(popup);
+    }
 }

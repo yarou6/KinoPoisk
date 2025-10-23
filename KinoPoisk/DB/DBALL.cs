@@ -72,6 +72,8 @@ namespace KinoPoisk.DB
         public async Task<DBALL> GetDB()
         {
             await Task.Delay(1000);
+            //File.Delete(FileSystem.Current.AppDataDirectory + "/test.txt");
+            //File.Create(FileSystem.Current.AppDataDirectory + "/test.txt");
 
             if (dBALL == null)
             {
