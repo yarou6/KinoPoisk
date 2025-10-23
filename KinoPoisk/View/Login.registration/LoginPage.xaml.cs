@@ -1,9 +1,8 @@
 using System;
 using Microsoft.Maui.Controls;
 using KinoPoisk.DB;
-using System.Text.Json;
-
-namespace KinoPoisk.View
+using KinoPoisk.View.Client;
+namespace KinoPoisk.View.Login.registration
 {
     public partial class LoginPage : ContentPage
     {

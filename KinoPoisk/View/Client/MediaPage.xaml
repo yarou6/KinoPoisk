@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="KinoPoisk.View.MediaPage">
+             x:Class="KinoPoisk.View.Client.MediaPage">
     <NavigationPage.TitleView>
         <Grid VerticalOptions="Center">
             <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
@@ -13,8 +13,8 @@
             </StackLayout>
         </Grid>
     </NavigationPage.TitleView>
-    
-    
+
+
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
             <Image x:Name="MovieImage" HeightRequest="200" Aspect="AspectFill"/>

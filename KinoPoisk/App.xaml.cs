@@ -11,7 +11,7 @@ namespace KinoPoisk
 
             db.InitAdmin();
 
-            MainPage = new NavigationPage(new View.LoginPage(db));
+            MainPage = new NavigationPage(new View.Login.registration.LoginPage(db));
         }
     }
 }

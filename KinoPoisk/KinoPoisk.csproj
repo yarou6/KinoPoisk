@@ -75,44 +75,47 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="View\AddGernePopup.xaml.cs">
+	  <Compile Update="View\Add\AddGernePopup.xaml.cs">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	    <DependentUpon>AddGernePopup.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\MediaPage.xaml.cs">
+	  <Compile Update="View\Client\MediaPage.xaml.cs">
 	    <DependentUpon>MediaPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\AddGernePopup.xaml">
+	  <MauiXaml Update="View\Add\AddGernePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\AddAuthorPopup.xaml">
+	  <MauiXaml Update="View\Add\AddAuthorPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\AddContentPage.xaml">
+	  <MauiXaml Update="View\Add\AddContentPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\AddTypePopup.xaml">
+	  <MauiXaml Update="View\Add\AddTypePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AdminPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\ListUpdateContentPopup.xaml">
+	  <MauiXaml Update="View\Client\ProfilePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\MediaPage.xaml">
+	  <MauiXaml Update="View\Update\ListUpdateContentPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\LoginPage.xaml">
+	  <MauiXaml Update="View\Client\MediaPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\RegistrationPage.xaml">
+	  <MauiXaml Update="View\Login.registration\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\UpdateContentPage.xaml">
+	  <MauiXaml Update="View\Login.registration\RegistrationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Update\UpdateContentPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

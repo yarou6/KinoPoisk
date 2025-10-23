@@ -3,18 +3,17 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    x:Class="KinoPoisk.View.AddAuthorPopup"
+    x:Class="KinoPoisk.View.Add.AddGernePopup"
     Size="400,350">
 
     <Border BackgroundColor="#222" StrokeShape="RoundRectangle 10" Padding="15">
         <VerticalStackLayout Spacing="15">
 
-            <Label Text="Добавить автора" FontSize="18" TextColor="White" HorizontalOptions="Center"/>
+            <Label Text="Добавить жанр" FontSize="18" TextColor="White" HorizontalOptions="Center"/>
 
-            <Entry x:Name="TitleEntry" Placeholder="Имя или компания" TextColor="White" BackgroundColor="#333"/>
-            <Entry x:Name="CountryEntry" Placeholder="Страна" TextColor="White" BackgroundColor="#333"/>
+            <Entry x:Name="TitleEntry" Placeholder="Жанр" TextColor="White" BackgroundColor="#333"/>
 
-            <Button Text="Сохранить" Clicked="SaveAuthor"/>
+            <Button Text="Сохранить" Clicked="SaveGerne"/>
             <Button Text="Отмена" Clicked="Cancel" BackgroundColor="#555"/>
         </VerticalStackLayout>
     </Border>

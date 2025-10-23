@@ -1,5 +1,5 @@
 ﻿using KinoPoisk.DB;
-namespace KinoPoisk.View;
+namespace KinoPoisk.View.Client;
 
 public partial class MediaPage : ContentPage
 {
@@ -23,8 +23,8 @@ public partial class MediaPage : ContentPage
         MovieRating.Text = $"⭐ {movieR.Stars}/10";
     }
 
-    private void Profile(object sender, EventArgs e)
+    private async void Profile(object sender, EventArgs e)
     {
-        DisplayAlert("Профиль", "Открыть профиль", "OK");
+        await Navigation.PushAsync(new ProfilePage());
     }
 }

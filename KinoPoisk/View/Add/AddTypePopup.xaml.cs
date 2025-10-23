@@ -1,6 +1,6 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
-namespace KinoPoisk.View;
+namespace KinoPoisk.View.Add;
 
 public partial class AddTypePopup : Popup
 {

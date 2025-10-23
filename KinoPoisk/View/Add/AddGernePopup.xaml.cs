@@ -1,7 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
 using System.Threading.Tasks;
-namespace KinoPoisk.View;
+namespace KinoPoisk.View.Add;
 public partial class AddGernePopup : Popup
 {
     private DBALL db;

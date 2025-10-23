@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="KinoPoisk.View.UpdateContentPage"
-             Title="UpdateContentPage">
-
+             x:Class="KinoPoisk.View.Add.AddContentPage"
+             BackgroundColor="#121212"
+             NavigationPage.HasBackButton="False">
+    
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
             <Label Text="KinoPoisk" FontSize="22" FontAttributes="Bold" VerticalOptions="Center"/>
@@ -41,7 +42,7 @@
             <Label Text="Автор:" TextColor="White"/>
             <Picker x:Name="AuthorPicker"/>
             <Button Text="Добавить автора" Clicked="AddAuthor"/>
-
+            
             <Label Text="Возрастной рейтинг:" TextColor="White"/>
             <Entry x:Name="AgeEntry" Placeholder="Например: 16+" Keyboard="Numeric"/>
 
@@ -49,7 +50,7 @@
             <DatePicker MinimumDate="01/01/1900"
                         MaximumDate="10/30/2025"
                         TextColor="White" x:Name="Date"/>
-
+            
             <Label Text="Количество Серий:" TextColor="White"/>
             <Entry x:Name="CountSeries" Placeholder="Например: 24" Keyboard="Numeric"/>
 

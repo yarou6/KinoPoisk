@@ -2,15 +2,17 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="KinoPoisk.View.ListUpdateContentPopup"
-             Size="400,350">
+             x:Class="KinoPoisk.View.Update.ListUpdateContentPopup"
+             Size="400,190">
 
     <Border BackgroundColor="#222" StrokeShape="RoundRectangle 10" Padding="15">
-        <CarouselView PeekAreaInsets="100">
+        <CarouselView x:Name="CarouselMovies" PeekAreaInsets="100">
             <CarouselView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout>
-                        <Frame>
+                        <Frame BindingContext="{Binding}"
+                           CornerRadius="10" Padding="5" Margin="5"
+                           BorderColor="#FF6600" BackgroundColor="#1E1E1E" HasShadow="True">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="MoviesSeries" NumberOfTapsRequired="1"/>
                             </Frame.GestureRecognizers>

@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
-using System.Threading.Tasks;
+using KinoPoisk.View.Add;
+using KinoPoisk.View.Update;
 namespace KinoPoisk.View;
 public partial class AdminPage : ContentPage
 {
@@ -52,7 +53,7 @@ public partial class AdminPage : ContentPage
 
     private async void UpdateContent(object sender, EventArgs e)
     {
-        var popup = new ListUpdateContentPopup(db);
+        var popup = new ListUpdateContentPopup(db, this);
 
         await this.ShowPopupAsync(popup);
     }

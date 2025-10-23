@@ -1,6 +1,7 @@
 using KinoPoisk.DB;
+using KinoPoisk.View;
 
-namespace KinoPoisk.View
+namespace KinoPoisk.View.Login.registration
 {
     public partial class RegistrationPage : ContentPage
     {
