@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="KinoPoisk.View.Client.MediaPage">
+             x:Class="KinoPoisk.View.Client.MediaPage"
+             NavigationPage.HasBackButton="False">
     <NavigationPage.TitleView>
         <Grid VerticalOptions="Center">
             <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
@@ -14,13 +15,39 @@
         </Grid>
     </NavigationPage.TitleView>
 
-
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Image x:Name="MovieImage" HeightRequest="200" Aspect="AspectFill"/>
-            <Label x:Name="MovieName" FontSize="24" TextColor="White"/>
-            <Label x:Name="MovieRating" FontSize="16" />
-            <Label x:Name="MovieDescription" FontSize="14" TextColor="Gray"/>
-        </VerticalStackLayout>
+
+        <Grid Padding="15" RowSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <VerticalStackLayout Grid.Row="0" Spacing="10" HorizontalOptions="Center">
+                <Frame HasShadow="True" BorderColor="#FF6600" CornerRadius="12" Padding="0">
+                    <Image x:Name="MovieImage" HeightRequest="300" WidthRequest="200" Aspect="AspectFill"/>
+                </Frame>
+                <Label Text="{Binding RatingText}" FontSize="16" TextColor="#FFCC00" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Spacing="8" Padding="10,0">
+                <Label Text="{Binding Name}" FontSize="28" FontAttributes="Bold" TextColor="White" LineBreakMode="WordWrap"/>
+                <BoxView HeightRequest="2" Color="#FF6600" WidthRequest="150"/>
+
+                <Label Text="{Binding YearText}" TextColor="White" FontSize="16"/>
+                <Label Text="{Binding CountryText}" TextColor="White" FontSize="16"/>
+                <Label Text="{Binding AuthorText}" TextColor="White" FontSize="16"/>
+                <Label Text="{Binding GenreText}" TextColor="White" FontSize="16"/>
+                <Label Text="{Binding AgeText}" TextColor="White" FontSize="16"/>
+                <Label Text="{Binding SeriesText}" TextColor="White" FontSize="16"/>
+            </VerticalStackLayout>
+
+            <Frame Grid.Row="2" Padding="15" CornerRadius="10" BackgroundColor="#1E1E1E">
+                <Label Text="{Binding Description}" TextColor="LightGray" FontSize="14" LineBreakMode="WordWrap"/>
+            </Frame>
+        </Grid>
+
     </ScrollView>
+
 </ContentPage>

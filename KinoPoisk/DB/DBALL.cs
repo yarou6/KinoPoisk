@@ -35,7 +35,9 @@ namespace KinoPoisk.DB
         int aerating = 0;
         int aeseries = 0;
         int aetypecontents = 0;
+        
         private DBALL dBALL;
+
         public static implicit operator DBDTO(DBALL dBALL)
         {
             var read = new DBDTO();
@@ -257,6 +259,8 @@ namespace KinoPoisk.DB
             {
                 rating.Stars = updated.Stars;
                 rating.Feedback = updated.Feedback;
+                rating.Content = updated.Content;
+                rating.IdContent = updated.IdContent;
             }
             await SaveFile();
         }
@@ -443,5 +447,31 @@ namespace KinoPoisk.DB
                 });
             }
         }
+
+
+        public async Task ClearDatabaseFile()
+        {
+            string path = Path.Combine(FileSystem.Current.AppDataDirectory, "test.txt");
+
+            if (File.Exists(path))
+                File.Delete(path);
+
+            contents.Clear();
+            authors.Clear();
+            gernes.Clear();
+            ratings.Clear();
+            series.Clear();
+            typeContents.Clear();
+
+            aecontent = 0;
+            aeauthor = 0;
+            aegerne = 0;
+            aerating = 0;
+            aeseries = 0;
+            aetypecontents = 0;
+
+            await Task.CompletedTask;
+        }
+
     }
 }

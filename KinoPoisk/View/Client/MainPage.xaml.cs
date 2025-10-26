@@ -9,158 +9,448 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         db = database;
         currentUser = user;
-         
-        WelcomeLabel.Text = $"Добро пожаловать, {currentUser.Login}!";
-        RoleLabel.Text = currentUser.IsAdmin ? "Роль: Админ" : "Роль: Пользователь";
-        SubscriptionLabel.Text = currentUser.HasSubscription ? "Подписка: есть" : "Подписка: нет";
-         
+
+        BindingContext = this;
+
         InitSampleData();
     }
     private async void InitSampleData()
-        {
-        //var contents = await db.GetContents();
+    {
+        //await db.ClearDatabaseFile();
+        //var filmType = new TypeContent { Id = 1, Title = "Фильм" };
+        //var seriesType = new TypeContent { Id = 2, Title = "Сериал" };
 
-        //var film1 = new Content
+        //var action = new Gerne { Id = 1, Title = "Экшн" };
+        //var drama = new Gerne { Id = 2, Title = "Драма" };
+        //var fantasy = new Gerne { Id = 3, Title = "Фэнтези" };
+        //var sciFi = new Gerne { Id = 4, Title = "Научная фантастика" };
+        //var thriller = new Gerne { Id = 5, Title = "Триллер" };
+        //var comedy = new Gerne { Id = 6, Title = "Комедия" };
+        //var adventure = new Gerne { Id = 7, Title = "Приключения" };
+        //var crime = new Gerne { Id = 8, Title = "Криминал" };
+        //var mystery = new Gerne { Id = 9, Title = "Мистика" };
+        //var animation = new Gerne { Id = 10, Title = "Мультфильм" };
+
+        //var marvel = new Author { Id = 1, Title = "Marvel Studios", Country = "США" };
+        //var starWars = new Author { Id = 2, Title = "Lucasfilm", Country = "США" };
+        //var netflix = new Author { Id = 3, Title = "Netflix Studios", Country = "США" };
+        //var dc = new Author { Id = 4, Title = "DC Films", Country = "США" };
+        //var fox = new Author { Id = 5, Title = "20th Century Fox", Country = "Новая Зеландия" };
+        //var amazon = new Author { Id = 6, Title = "Amazon Studios", Country = "США" };
+
+        //var contents = new List<Content>
         //{
-        //    Id = 1,
-        //    Name = "Inception",
-        //    Description = "Фантастический триллер о снах и реальности.",
-        //    Image = "inception",
-        //    Data = new DateTime(2010, 7, 16),
-        //    Age = "16",
-        //    Subscription = false,
-        //    CountSeries = 1
-        //};
+        //    new Content
+        //    {
+        //        Id = 1,
+        //        Name = "Мстители: Финал",
+        //        Description = "Супергеройский фильм о финальной битве Мстителей с Таносом.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, drama, sciFi },
+        //        Author = marvel,
+        //        IdAuthor = 1,
+        //        Age = "12+",
+        //        Data = new DateTime(2019,4,26),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "avengersendgame"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 2,
+        //        Name = "Звёздные войны: Пробуждение силы",
+        //        Description = "Приключенческий космический эпос о борьбе Сопротивления с Первым Орденом.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, adventure, fantasy },
+        //        Author = starWars,
+        //        IdAuthor = 2,
+        //        Age = "12+",
+        //        Data = new DateTime(2015,12,18),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "starwarstheforceawakens"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 3,
+        //        Name = "Джокер",
+        //        Description = "Психологический триллер о происхождении одного из самых известных злодеев Готэма.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ drama, thriller, crime },
+        //        Author = dc,
+        //        IdAuthor = 4,
+        //        Age = "18+",
+        //        Data = new DateTime(2019,10,4),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "joker"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 4,
+        //        Name = "Аватар",
+        //        Description = "Фантастический эпос о планете Пандора и войне за её ресурсы.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, adventure, fantasy, sciFi },
+        //        Author = fox,
+        //        IdAuthor = 5,
+        //        Age = "12+",
+        //        Data = new DateTime(2009,12,18),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "avatar"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 5,
+        //        Name = "Хранители",
+        //        Description = "Супергеройский фильм о группе бывших героев, раскрывающих заговор в США.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, drama, mystery },
+        //        Author = dc,
+        //        IdAuthor = 4,
+        //        Age = "16+",
+        //        Data = new DateTime(2009,3,6),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "watchmen"
 
-        //var film2 = new Content
+        //    },
+        //    new Content
+        //    {
+        //        Id = 6,
+        //        Name = "Железный человек",
+        //        Description = "История миллиардера Тони Старка, который становится супергероем Железным человеком.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, sciFi },
+        //        Author = marvel,
+        //        IdAuthor = 1,
+        //        Age = "12+",
+        //        Data = new DateTime(2008,5,2),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "ironman"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 7,
+        //        Name = "Стражи Галактики",
+        //        Description = "Космическая команда героев сражается против угрозы вселенной.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, adventure, comedy, sciFi },
+        //        Author = marvel,
+        //        IdAuthor = 1,
+        //        Age = "12+",
+        //        Data = new DateTime(2014,8,1),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "guardiansofthegalaxy"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 8,
+        //        Name = "Властелин колец: Братство кольца",
+        //        Description = "Фэнтезийное приключение о путешествии Фродо и его друзей, чтобы уничтожить кольцо.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ adventure, fantasy, drama },
+        //        Author = amazon,
+        //        IdAuthor = 6,
+        //        Age = "12+",
+        //        Data = new DateTime(2001,12,19),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "thelordoftheringsthefellowshipofthering"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 9,
+        //        Name = "Игра престолов",
+        //        Description = "Эпический сериал о борьбе за Железный трон и политических интригах в Вестеросе.",
+        //        TypeContent = seriesType,
+        //        IdTypeContent = 2,
+        //        Gernes = new List<Gerne>{ drama, fantasy, adventure },
+        //        Author = netflix,
+        //        IdAuthor = 3,
+        //        Age = "18+",
+        //        Data = new DateTime(2011,4,17),
+        //        CountSeries = 8,
+        //        Subscription = true,
+        //        Image = "gameofthrones"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 10,
+        //        Name = "Шерлок",
+        //        Description = "Современная адаптация приключений знаменитого детектива Шерлока Холмса.",
+        //        TypeContent = seriesType,
+        //        IdTypeContent = 2,
+        //        Gernes = new List<Gerne>{ drama, crime, mystery },
+        //        Author = netflix,
+        //        IdAuthor = 3,
+        //        Age = "16+",
+        //        Data = new DateTime(2010,7,25),
+        //        CountSeries = 4,
+        //        Subscription = true,
+        //        Image = "sherlock"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 11,
+        //        Name = "Форсаж 7",
+        //        Description = "Экшн-фильм о гонках и семейных ценностях команды Доминика Торетто.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, adventure, drama },
+        //        Author = fox,
+        //        IdAuthor = 5,
+        //        Age = "12+",
+        //        Data = new DateTime(2015,4,3),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "furious7"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 12,
+        //        Name = "Интерстеллар",
+        //        Description = "Научно-фантастический фильм о путешествии через космос и червоточины для спасения человечества.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ sciFi, drama, adventure },
+        //        Author = fox,
+        //        IdAuthor = 5,
+        //        Age = "12+",
+        //        Data = new DateTime(2014,11,7),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "interstellar"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 13,
+        //        Name = "Лига справедливости Зака Снайдера",
+        //        Description = "Супергеройский фильм, объединяющий героев DC для спасения мира.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, adventure, fantasy },
+        //        Author = dc,
+        //        IdAuthor = 4,
+        //        Age = "12+",
+        //        Data = new DateTime(2021,3,18),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "justiceleague"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 14,
+        //        Name = "Тор: Рагнарёк",
+        //        Description = "Фантастический приключенческий фильм о Торе, который борется за спасение Асгарда.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, adventure, comedy, fantasy },
+        //        Author = marvel,
+        //        IdAuthor = 1,
+        //        Age = "12+",
+        //        Data = new DateTime(2017,11,3),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "thorragnarok"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 15,
+        //        Name = "Веном",
+        //        Description = "Фильм о журналисте Эдди Броке и симбиоте Веноме, превращающем его в антигероя.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, sciFi, thriller },
+        //        Author = fox,
+        //        IdAuthor = 5,
+        //        Age = "16+",
+        //        Data = new DateTime(2018,10,5),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "venom"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 16,
+        //        Name = "Тёмный рыцарь",
+        //        Description = "Фильм о Бэтмене и его борьбе с Джокером в Готэме.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, drama, crime },
+        //        Author = dc,
+        //        IdAuthor = 4,
+        //        Age = "16+",
+        //        Data = new DateTime(2008,7,18),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "thedarkknight"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 17,
+        //        Name = "Лунтик и его друзья",
+        //        Description = "Весёлый мультфильм о приключениях Лунтика и его друзей.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ animation, comedy, adventure },
+        //        Author = amazon,
+        //        IdAuthor = 6,
+        //        Age = "0+",
+        //        Data = new DateTime(2006,6,1),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "luntik"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 18,
+        //        Name = "Стражи Галактики. Часть 2",
+        //        Description = "Продолжение приключений Стражей Галактики в космосе.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, adventure, comedy, sciFi },
+        //        Author = marvel,
+        //        IdAuthor = 1,
+        //        Age = "12+",
+        //        Data = new DateTime(2017,5,5),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "guardiansofthegalaxyvol2"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 19,
+        //        Name = "Валериан и город тысячи планет",
+        //        Description = "Научно-фантастический фильм о спецагентах, защищающих миры во вселенной.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ action, adventure, sciFi },
+        //        Author = fox,
+        //        IdAuthor = 5,
+        //        Age = "12+",
+        //        Data = new DateTime(2017,7,21),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "valerianandthecity"
+        //    },
+        //    new Content
+        //    {
+        //        Id = 20,
+        //        Name = "Бегущий по лезвию 2049",
+        //        Description = "Фантастический триллер о будущем, где андроиды и люди сосуществуют.",
+        //        TypeContent = filmType,
+        //        IdTypeContent = 1,
+        //        Gernes = new List<Gerne>{ drama, sciFi, thriller },
+        //        Author = fox,
+        //        IdAuthor = 5,
+        //        Age = "18+",
+        //        Data = new DateTime(2017,10,6),
+        //        CountSeries = 1,
+        //        Subscription = true,
+        //        Image = "bladerunner2049"
+        //    }
+        //};
+        //int ratingId = 1;
+        //var random = new Random();
+
+        //foreach (var content in contents)
         //{
-        //    Id = 2,
-        //    Name = "Interstellar",
-        //    Description = "Путешествие за пределы галактики ради спасения человечества.",
-        //    Image = "interstellar",
-        //    Data = new DateTime(2014, 11, 7),
-        //    Age = "12",
-        //    Subscription = true,
-        //    CountSeries = 1
-        //};
+        //    await db.AddContent(content);
 
-        //var film3 = new Content
-        //{
-        //    Id = 3,
-        //    Name = "Breaking Bad",
-        //    Description = "Учитель химии становится наркобароном.",
-        //    Image = "breakingbad",
-        //    Data = new DateTime(2008, 1, 20),
-        //    Age = "18",
-        //    Subscription = true,
-        //    CountSeries = 5
-        //};
-        //var film4 = new Content
-        //{
-        //    Id = 4,
-        //    Name = "The Matrix",
-        //    Description = "Культовый научно-фантастический боевик о виртуальной реальности.",
-        //    Image = "matrix",
-        //    Data = new DateTime(1999, 3, 31),
-        //    Age = "16",
-        //    Subscription = false,
-        //    CountSeries = 1
-        //};
-
-        //var film5 = new Content
-        //{
-        //    Id = 5,
-        //    Name = "The Witcher",
-        //    Description = "Фэнтези-сериал о ведьмаке, который охотится на чудовищ.",
-        //    Image = "witcher",
-        //    Data = new DateTime(2019, 12, 20),
-        //    Age = "18",
-        //    Subscription = true,
-        //    CountSeries = 2
-        //};
-
-        //var film6 = new Content
-        //{
-        //    Id = 6,
-        //    Name = "Stranger Things",
-        //    Description = "Детективно-фантастический сериал с мистическими событиями в маленьком городе.",
-        //    Image = "strangerthings",
-        //    Data = new DateTime(2016, 7, 15),
-        //    Age = "14",
-        //    Subscription = true,
-        //    CountSeries = 4
-        //};
-
-        //await db.AddContent(film1);
-        //await db.AddContent(film2);
-        //await db.AddContent(film3);
-        //await db.AddContent(film4);
-        //await db.AddContent(film5);
-        //await db.AddContent(film6);
-
-        //await db.AddRating(new Rating { Id = 1, Stars = 9 });
-        //await db.AddRating(new Rating { Id = 2, Stars = 10 });
-        //await db.AddRating(new Rating { Id = 3, Stars = 9.5 });
-        //await db.AddRating(new Rating { Id = 4, Stars = 8.5 });
-        //await db.AddRating(new Rating { Id = 5, Stars = 9 });
-        //await db.AddRating(new Rating { Id = 6, Stars = 8.7 });
+        //    var rating = new Rating
+        //    {
+        //        Id = ratingId++,
+        //        Stars = Math.Round(random.NextDouble() * 4 + 6, 1),
+        //        Feedback = "Отзыв отсутствует",
+        //        IdContent = content.Id,
+        //        Content = content
+        //    };
+        //    await db.AddRating(rating);
+        //}
         LoadTopRatedContent();
-        }
-        private async Task LoadTopRatedContent()
-        {
-            var contents = await db.GetContents();
-            var ratings = await db.GetRating();
+    }
+    private async Task LoadTopRatedContent()
+    {
+        var contents = await db.GetContents();
+        var ratings = await db.GetRating();
 
-            var contentWithRatings = contents.Select(c =>
+        var allMovies = contents.Select(c =>
+        {
+            var rating = ratings.FirstOrDefault(r => r.Id == c.Id);
+            double stars = rating?.Stars ?? 0;
+
+            return new
             {
-                var rating = ratings.FirstOrDefault(r => r.Id == c.Id);
-                double stars = rating?.Stars ?? 0;
+                c.Id,
+                c.Name,
+                c.Description,
+                c.Image,
+                Rating = stars,
+                RatingText = $"⭐ {stars}/10",
+                Subscription = c.Subscription && !currentUser.HasSubscription
+            };
+        })
+        .OrderByDescending(c => c.Rating)
+        .ToList();
 
-                return new
-                {
-                    c.Id,
-                    c.Name,
-                    c.Description,
-                    c.Image,
-                    Rating = stars,
-                    RatingText = $"⭐ {stars}/10"
-                };
-            })
-            .OrderByDescending(c => c.Rating)
-            .ToList();
+        TopMoviesCollectionView.ItemsSource = allMovies.Take(10);
 
-            MoviesCollectionView.ItemsSource = contentWithRatings;
-        }
+        AllMoviesCollectionView.ItemsSource = allMovies;
 
-        private async void MoviesSeries(object sender, EventArgs e)
+        MovieSearchBar.TextChanged += (s, e) =>
         {
-            var frame = sender as Frame;
-            if (frame?.BindingContext == null)
+            if (string.IsNullOrWhiteSpace(e.NewTextValue))
+            {
+                AllMoviesCollectionView.ItemsSource = allMovies;
                 return;
-
-            dynamic movie = frame.BindingContext;
-
-            var rating = await db.GetRatingId((int)movie.Id);
-            var content = await db.GetContentId((int)movie.Id);
-
-
-            if (content.Subscription && !currentUser.HasSubscription)
-            {
-                await DisplayAlert("Подписка", "Для просмотра этого фильма нужна подписка.", "ОК");
             }
-            else
-            {
-                await Navigation.PushAsync(new MediaPage(content, rating));
-            }
-        }
-        private async void Profile(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new ProfilePage());
-        }
 
-        private void MoviesSeries(object sender, TappedEventArgs e)
-        {
+            var filtered = allMovies
+                .Where(m => m.Name.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase)
+                         || m.Description.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase))
+                .ToList();
 
+            AllMoviesCollectionView.ItemsSource = filtered;
+        };
+    }
+
+    private async void MoviesSeries(object sender, EventArgs e)
+    {
+        var frame = sender as Frame;
+        if (frame?.BindingContext == null)
+            return;
+
+        dynamic movie = frame.BindingContext;
+
+        var rating = await db.GetRatingId((int)movie.Id);
+        var content = await db.GetContentId((int)movie.Id);
+
+
+        if (content.Subscription && !currentUser.HasSubscription)
+        {
+            await DisplayAlert("Нет Доступа", "Для просмотра этого фильма нужна подписка.", "ОК");
+        }
+        else
+        {
+            await Navigation.PushAsync(new MediaPage(content, rating));
         }
     }
+    private async void Profile(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ProfilePage());
+    }
+
+}
 

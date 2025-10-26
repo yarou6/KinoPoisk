@@ -1,50 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-    <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  x:Class="KinoPoisk.View.Client.MainPage"
                  BackgroundColor="#121212"
                  NavigationPage.HasBackButton="False">
 
-        <NavigationPage.TitleView>
-            <Grid VerticalOptions="Center">
-                <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
-                    <Label Text="KinoPoisk" FontSize="22" FontAttributes="Bold" VerticalOptions="Center"/>
-                </StackLayout>
+    <NavigationPage.TitleView>
+        <Grid VerticalOptions="Center">
+            <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
+                <Label Text="KinoPoisk" FontSize="22" FontAttributes="Bold" VerticalOptions="Center"/>
+            </StackLayout>
 
-                <StackLayout Orientation="Horizontal" Spacing="15" VerticalOptions="Center"  HorizontalOptions="End" Grid.Column="1">
-                    <Button Text="Profile" FontSize="22" TextColor="#FF6600"  BackgroundColor="Transparent" Clicked="Profile"/>
-                </StackLayout>
-            </Grid>
-        </NavigationPage.TitleView>
-
-
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Label x:Name="WelcomeLabel" FontSize="24" HorizontalOptions="Center"/>
-            <Label x:Name="RoleLabel"/>
-            <Label x:Name="SubscriptionLabel"/>
+            <StackLayout Orientation="Horizontal" Spacing="15" VerticalOptions="Center"  HorizontalOptions="End" Grid.Column="1">
+                <Button Text="Profile" FontSize="22" TextColor="#FF6600"  BackgroundColor="Transparent" Clicked="Profile"/>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
 
 
-          
-            <CollectionView x:Name="MoviesCollectionView"
-                    ItemsLayout="HorizontalList"
-                    HeightRequest="180"
-                    Margin="0,10,0,10">
-            <CollectionView.ItemTemplate>
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="20">
+
+            <SearchBar x:Name="MovieSearchBar" Placeholder="Поиск фильмов..." BackgroundColor="#1E1E1E" TextColor="White" PlaceholderColor="#888" HeightRequest="40"/>
+            <Label Text="Топ 10 фильмов" FontSize="18"/>
+            <CollectionView x:Name="TopMoviesCollectionView" ItemsLayout="HorizontalList" HeightRequest="200">
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame WidthRequest="100" HeightRequest="160" CornerRadius="10" Padding="5" Margin="5" BorderColor="#FF6600" BackgroundColor="#1E1E1E" HasShadow="True">
+                        <Frame WidthRequest="120" HeightRequest="180" CornerRadius="10" Padding="5" Margin="5" BackgroundColor="#1E1E1E" BorderColor="#FF6600">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="MoviesSeries" NumberOfTapsRequired="1"/>
                             </Frame.GestureRecognizers>
-
                             <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                                <Image Source="{Binding Image}" HeightRequest="100" WidthRequest="80" Aspect="AspectFill"/>
-                                <Label Text="{Binding Name}" FontSize="10" TextColor="White" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
-                                <Label Text="{Binding RatingText}" FontSize="10" HorizontalOptions="Center"/>
+                                <Grid>
+                                    <Image Source="{Binding Image}" HeightRequest="120" WidthRequest="100" Aspect="AspectFill"/>
+                                    <Label Text="Только для подписчиков" IsVisible="{Binding Subscription}" BackgroundColor="#FF6600" TextColor="White" FontSize="10" Padding="3" 
+                                           HorizontalOptions="End" VerticalOptions="Start" Margin="0,5,5,0"/>
+                                </Grid>
+                                <Label Text="{Binding Name}" FontSize="12" TextColor="White" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding RatingText}" FontSize="12" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </VerticalStackLayout>
 
-    </ContentPage>
+            <Label Text="Все фильмы" FontSize="18" />
+            <CollectionView x:Name="AllMoviesCollectionView" ItemsLayout="VerticalGrid, 2" Margin="0,0,0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="10" Padding="5" Margin="5" BackgroundColor="#1E1E1E" BorderColor="{Binding SubscriptionColor}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="MoviesSeries" NumberOfTapsRequired="1"/>
+                            </Frame.GestureRecognizers>
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
+                                <Grid>
+                                    <Image Source="{Binding Image}" HeightRequest="120" WidthRequest="100" Aspect="AspectFill"/>
+                                    <Label Text="Только для подписчиков" IsVisible="{Binding Subscription}" BackgroundColor="#FF6600" TextColor="White" FontSize="10" Padding="3" 
+                                           HorizontalOptions="End" VerticalOptions="Start" Margin="0,5,5,0"/>
+                                </Grid>
+                                <Label Text="{Binding Name}" FontSize="12" TextColor="White" HorizontalOptions="Center" LineBreakMode="TailTruncation"/>
+                                <Label Text="{Binding RatingText}" FontSize="12" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

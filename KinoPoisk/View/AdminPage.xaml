@@ -20,7 +20,7 @@
                 <DataTemplate>
                     <TextCell Text="{Binding Login}"/>
                 </DataTemplate>
-            </ListView.ItemTemplate>
+               </ListView.ItemTemplate>
         </ListView>
 
         <HorizontalStackLayout Spacing="10">
