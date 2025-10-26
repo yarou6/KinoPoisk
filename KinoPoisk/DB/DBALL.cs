@@ -14,6 +14,7 @@ namespace KinoPoisk.DB
         public List<Rating> ratings { get; set; }
         public List<Series> series { get; set; }
         public List<TypeContent> typeContents { get; set; }
+        public List<User> users { get; set; }
         public int aecontent { get; set; }
         public int aeauthor { get; set; }
         public int aegerne { get; set; }
@@ -29,6 +30,8 @@ namespace KinoPoisk.DB
         List<Rating> ratings = new();
         List<Series> series = new();
         List<TypeContent> typeContents = new();
+        List<User> users = new();
+
         int aecontent = 0;
         int aeauthor = 0;
         int aegerne = 0;
@@ -47,6 +50,8 @@ namespace KinoPoisk.DB
             read.ratings = dBALL.ratings;
             read.series = dBALL.series;
             read.typeContents = dBALL.typeContents;
+            read.users = dBALL.users;
+
             read.aecontent = dBALL.aecontent;
             read.aeauthor = dBALL.aeauthor;
             read.aegerne = dBALL.aegerne;
@@ -63,6 +68,8 @@ namespace KinoPoisk.DB
             dBALL.ratings = dBDTO.ratings;
             dBALL.series = dBDTO.series;
             dBALL.typeContents = dBDTO.typeContents;
+            dBALL.users = dBDTO.users ?? new List<User>();
+
             dBALL.aecontent = dBDTO.aecontent;
             dBALL.aeauthor = dBDTO.aeauthor;
             dBALL.aegerne = dBDTO.aegerne;
@@ -83,6 +90,7 @@ namespace KinoPoisk.DB
                 if (File.Exists(FileSystem.Current.AppDataDirectory + "/test.txt"))
                     await ReadFiles();
 
+                await InitAdmin();
             }
             return dBALL;
 
@@ -104,7 +112,10 @@ namespace KinoPoisk.DB
             {
                await File.WriteAllTextAsync(FileSystem.Current.AppDataDirectory + "/test.txt", JsonSerializer.Serialize((DBDTO)this));
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка сохранения: " + ex.Message);
+            }
         }
 
         public async Task AddContent(Content content)
@@ -367,13 +378,6 @@ namespace KinoPoisk.DB
         }
 
 
-
-
-
-
-
-
-        private List<User> users = new();
         public async Task RemoveUser(int id)
         {
             await Task.Delay(1000);
@@ -393,6 +397,8 @@ namespace KinoPoisk.DB
         public async Task<User> Authenticate(string login, string password)
         {
             await Task.Delay(1000);
+            if (users == null)
+                users = new List<User>();
             var obj = users.FirstOrDefault(u => u.Login == login && u.Password == password);
             return obj;
         }
@@ -417,6 +423,7 @@ namespace KinoPoisk.DB
         public async Task InitAdmin()
         {
             await Task.Delay(1000);
+            if (users == null) users = new List<User>();
             if (!users.Any(u => u.IsAdmin))
             {
                 users.Add(new User
@@ -473,5 +480,55 @@ namespace KinoPoisk.DB
             await Task.CompletedTask;
         }
 
+        public async Task AddOrUpdateRating(int contentId, int userId, double stars, string feedback)
+        {
+            var existingRating = ratings.FirstOrDefault(r => r.IdUser == userId && r.IdContent == contentId);
+
+            if (existingRating != null)
+            {
+                existingRating.Stars = stars;
+                existingRating.Feedback = feedback;
+                await UpdateRating(existingRating);
+            }
+            else
+            {
+                var newRating = new Rating
+                {
+                    Id = ratings.Any() ? ratings.Max(r => r.Id) + 1 : 1,
+                    IdUser = userId,
+                    IdContent = contentId,
+                    Stars = stars,
+                    Feedback = feedback
+                };
+                await AddRating(newRating);
+            }
+
+            var content = await GetContentId(contentId);
+            double average = content.GetAverageRating(await GetRating());
+            Console.WriteLine($"Новая средняя оценка для {content.Name}: {average}");
+        }
+        public async Task MarkAsWatched(int userId, int contentId)
+        {
+            var user = await GetUserById(userId);
+            if (user != null && !user.WatchedContentIds.Contains(contentId))
+            {
+                user.WatchedContentIds.Add(contentId);
+                await SaveFile();
+            }
+        }
+
+        public async Task ToggleFavorite(int userId, int contentId)
+        {
+            var user = await GetUserById(userId);
+            if (user != null)
+            {
+                if (user.FavoriteContentIds.Contains(contentId))
+                    user.FavoriteContentIds.Remove(contentId);
+                else
+                    user.FavoriteContentIds.Add(contentId);
+
+                await SaveFile();
+            }
+        }
     }
 }

@@ -13,5 +13,8 @@ namespace KinoPoisk.DB
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public bool HasSubscription { get; set; }
+
+        public List<int> WatchedContentIds { get; set; } = new();  
+        public List<int> FavoriteContentIds { get; set; } = new(); 
     }
 }

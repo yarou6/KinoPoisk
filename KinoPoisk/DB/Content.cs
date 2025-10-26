@@ -34,5 +34,12 @@ namespace KinoPoisk.DB
 
         //Cделать
         public string Image { get; set; }
+
+
+        public double GetAverageRating(List<Rating> allRatings)
+        {
+            var contentRatings = allRatings.Where(r => r.IdContent == this.Id).ToList();
+            return contentRatings.Count > 0 ? contentRatings.Average(r => r.Stars) : 0;
+        }
     }
 }

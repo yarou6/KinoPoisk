@@ -4,13 +4,63 @@
              x:Class="KinoPoisk.View.Client.ProfilePage">
     <NavigationPage.TitleView>
         <Grid VerticalOptions="Center">
-            <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
-                <Label Text="KinoPoisk" FontSize="22" FontAttributes="Bold" VerticalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" Spacing="10" Padding="5" VerticalOptions="Center" HorizontalOptions="Start"   >
+                <Button Text="KinoPoisk" FontSize="22" TextColor="#FF6600"  BackgroundColor="Transparent" Clicked="Main"/>
             </StackLayout>
         </Grid>
     </NavigationPage.TitleView>
-    
-    
-    
-    
+
+    <ScrollView>
+        <StackLayout Padding="15" Spacing="20">
+
+            <Label Text="Избранное" FontSize="22" FontAttributes="Bold" TextColor="White"/>
+            <CollectionView x:Name="FavoriteCollectionView" ItemSizingStrategy="MeasureAllItems">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="#FF6600" CornerRadius="10" Padding="10" Margin="0,0,0,10" BackgroundColor="#1E1E1E">
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <Image Source="{Binding Image}" HeightRequest="80" WidthRequest="60" Aspect="AspectFill"/>
+                                <Label Text="{Binding Name}" TextColor="White" VerticalOptions="Center" FontSize="18"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Просмотренные" FontSize="22" FontAttributes="Bold" TextColor="White"/>
+            <CollectionView x:Name="WatchedCollectionView" ItemSizingStrategy="MeasureAllItems">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="#FF6600" CornerRadius="10" Padding="10" Margin="0,0,0,10" BackgroundColor="#1E1E1E">
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <Image Source="{Binding Image}" HeightRequest="80" WidthRequest="60" Aspect="AspectFill"/>
+                                <Label Text="{Binding Name}" TextColor="White" VerticalOptions="Center" FontSize="18"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Мои оценки" FontSize="22" FontAttributes="Bold" TextColor="White"/>
+            <CollectionView x:Name="RatingsCollectionView" ItemSizingStrategy="MeasureAllItems">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="#FF6600" CornerRadius="10" Padding="10" Margin="0,0,0,10" BackgroundColor="#1E1E1E">
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <Image Source="{Binding ContentImage}" HeightRequest="80" WidthRequest="60" Aspect="AspectFill"/>
+                                <StackLayout Orientation="Vertical" Spacing="3">
+                                    <Label Text="{Binding ContentName}" TextColor="White" FontAttributes="Bold"/>
+                                    <Label Text="{Binding StarsText}" TextColor="#FFCC00"/>
+                                    <Label Text="{Binding Feedback}" TextColor="LightGray" LineBreakMode="WordWrap"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
+    </ScrollView>
+
+
 </ContentPage>

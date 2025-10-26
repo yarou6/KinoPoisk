@@ -388,8 +388,7 @@ public partial class MainPage : ContentPage
 
         var allMovies = contents.Select(c =>
         {
-            var rating = ratings.FirstOrDefault(r => r.Id == c.Id);
-            double stars = rating?.Stars ?? 0;
+            double stars = c.GetAverageRating(ratings);
 
             return new
             {
@@ -398,7 +397,7 @@ public partial class MainPage : ContentPage
                 c.Description,
                 c.Image,
                 Rating = stars,
-                RatingText = $"⭐ {stars}/10",
+                RatingText = $"⭐ {stars:F1}/10",
                 Subscription = c.Subscription && !currentUser.HasSubscription
             };
         })
@@ -434,23 +433,33 @@ public partial class MainPage : ContentPage
 
         dynamic movie = frame.BindingContext;
 
-        var rating = await db.GetRatingId((int)movie.Id);
         var content = await db.GetContentId((int)movie.Id);
 
 
         if (content.Subscription && !currentUser.HasSubscription)
         {
             await DisplayAlert("Нет Доступа", "Для просмотра этого фильма нужна подписка.", "ОК");
+            return;
         }
-        else
-        {
-            await Navigation.PushAsync(new MediaPage(content, rating));
-        }
+
+        await Navigation.PushAsync(new MediaPage(content, db, currentUser));
     }
     private async void Profile(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ProfilePage());
+        await Navigation.PushAsync(new ProfilePage(db, currentUser));
     }
+    public async void RefreshData()
+    {
+        await LoadTopRatedContent();
+    }
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
 
+        if (Navigation.NavigationStack.OfType<MainPage>().FirstOrDefault() is MainPage mainPage)
+        {
+            mainPage.RefreshData();
+        }
+    }
 }
 

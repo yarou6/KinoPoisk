@@ -13,5 +13,7 @@ namespace KinoPoisk.DB
         public string Feedback { get; set; }
         public int IdContent {get; set; }
         public Content Content { get; set; }
+        public int IdUser { get; set; } 
+        public User User { get; set; }
     }
 }

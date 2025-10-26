@@ -5,8 +5,8 @@
              NavigationPage.HasBackButton="False">
     <NavigationPage.TitleView>
         <Grid VerticalOptions="Center">
-            <StackLayout Orientation="Horizontal" Spacing="10" Padding="5">
-                <Label Text="KinoPoisk" FontSize="22" FontAttributes="Bold" VerticalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" Spacing="10" Padding="5" VerticalOptions="Center" HorizontalOptions="Start"   >
+                <Button Text="KinoPoisk" FontSize="22" TextColor="#FF6600"  BackgroundColor="Transparent" Clicked="Main"/>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" Spacing="15" VerticalOptions="Center"  HorizontalOptions="End" Grid.Column="1">
@@ -22,6 +22,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <VerticalStackLayout Grid.Row="0" Spacing="10" HorizontalOptions="Center">
@@ -46,6 +47,15 @@
             <Frame Grid.Row="2" Padding="15" CornerRadius="10" BackgroundColor="#1E1E1E">
                 <Label Text="{Binding Description}" TextColor="LightGray" FontSize="14" LineBreakMode="WordWrap"/>
             </Frame>
+
+            <StackLayout Grid.Row="3" Orientation="Vertical" Spacing="10" Padding="0,10">
+                <Entry x:Name="FeedbackEntry" Placeholder="Оставьте отзыв" TextColor="White" BackgroundColor="#2E2E2E"/>
+                <HorizontalStackLayout Spacing="10">
+                    <Button Text="⭐ Оценить" TextColor="White" Clicked="RateMovie"/>
+                    <Button Text="❤ Избранное" TextColor="White" Clicked="ToggleFavorite"/>
+                    <Button Text="👁 Просмотрено" TextColor="White" Clicked="MarkWatched"/>
+                </HorizontalStackLayout>
+            </StackLayout>
         </Grid>
 
     </ScrollView>
