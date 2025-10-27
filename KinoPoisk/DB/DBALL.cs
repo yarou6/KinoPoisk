@@ -120,7 +120,7 @@ namespace KinoPoisk.DB
 
         public async Task AddContent(Content content)
         {
-            await Task.Delay(1000);
+            await Task.Delay(100);
             content.Id = aecontent;
             contents.Add(content);
             aecontent++;
@@ -177,7 +177,7 @@ namespace KinoPoisk.DB
 
         public async Task AddAuthor(Author author)
         {
-            await Task.Delay(1000);
+            await Task.Delay(100);
             author.Id = aeauthor;
             authors.Add(author);
             aeauthor++;
@@ -217,7 +217,7 @@ namespace KinoPoisk.DB
 
         public async Task AddGenre(Gerne genre)
         {
-            await Task.Delay(1000);
+            await Task.Delay(100);
             genre.Id = aegerne;
             gernes.Add(genre);
             aegerne++;
@@ -256,7 +256,7 @@ namespace KinoPoisk.DB
 
         public async Task AddRating(Rating rating)
         {
-            await Task.Delay(1000);
+            await Task.Delay(100);
             rating.Id = aerating;
             ratings.Add(rating);
             aerating++;
@@ -342,7 +342,7 @@ namespace KinoPoisk.DB
 
         public async Task AddTypeContent(TypeContent typeContent)
         {
-            await Task.Delay(1000);
+            await Task.Delay(100);
             typeContent.Id = aetypecontents;
             typeContents.Add(typeContent);
             aetypecontents++;
@@ -418,8 +418,13 @@ namespace KinoPoisk.DB
             };
 
             users.Add(user);
+            await SaveFile();
             return true;
         }
+        /// <summary>
+        /// ненужное
+        /// </summary>
+        /// <returns></returns>
         public async Task InitAdmin()
         {
             await Task.Delay(1000);
@@ -458,6 +463,7 @@ namespace KinoPoisk.DB
 
         public async Task ClearDatabaseFile()
         {
+            await Task.Delay(1000);
             string path = Path.Combine(FileSystem.Current.AppDataDirectory, "test.txt");
 
             if (File.Exists(path))
@@ -482,6 +488,8 @@ namespace KinoPoisk.DB
 
         public async Task AddOrUpdateRating(int contentId, int userId, double stars, string feedback)
         {
+            await Task.Delay(1000);
+
             var existingRating = ratings.FirstOrDefault(r => r.IdUser == userId && r.IdContent == contentId);
 
             if (existingRating != null)
@@ -509,6 +517,8 @@ namespace KinoPoisk.DB
         }
         public async Task MarkAsWatched(int userId, int contentId)
         {
+            await Task.Delay(1000);
+
             var user = await GetUserById(userId);
             if (user != null && !user.WatchedContentIds.Contains(contentId))
             {
@@ -519,6 +529,8 @@ namespace KinoPoisk.DB
 
         public async Task ToggleFavorite(int userId, int contentId)
         {
+            await Task.Delay(1000);
+
             var user = await GetUserById(userId);
             if (user != null)
             {

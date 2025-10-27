@@ -32,7 +32,7 @@
                     <DataTemplate>
                         <StackLayout Orientation="Horizontal" Padding="5">
                             <CheckBox IsChecked="{Binding IsChecked}" />
-                            <Label Text="{Binding Genre.Title}" TextColor="White" VerticalOptions="Center"/>
+                            <Label Text="{Binding Gerne.Title}" TextColor="White" VerticalOptions="Center"/>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -20,6 +20,9 @@ public partial class MainPage : ContentPage
         //var filmType = new TypeContent { Id = 1, Title = "Фильм" };
         //var seriesType = new TypeContent { Id = 2, Title = "Сериал" };
 
+        //await db.AddTypeContent(filmType);
+        //await db.AddTypeContent(seriesType);
+
         //var action = new Gerne { Id = 1, Title = "Экшн" };
         //var drama = new Gerne { Id = 2, Title = "Драма" };
         //var fantasy = new Gerne { Id = 3, Title = "Фэнтези" };
@@ -31,12 +34,33 @@ public partial class MainPage : ContentPage
         //var mystery = new Gerne { Id = 9, Title = "Мистика" };
         //var animation = new Gerne { Id = 10, Title = "Мультфильм" };
 
+        //await db.AddGenre(action);
+        //await db.AddGenre(drama);
+        //await db.AddGenre(fantasy);
+        //await db.AddGenre(sciFi);
+        //await db.AddGenre(thriller);
+        //await db.AddGenre(comedy);
+        //await db.AddGenre(adventure);
+        //await db.AddGenre(crime);
+        //await db.AddGenre(mystery);
+        //await db.AddGenre(animation);
+
+
         //var marvel = new Author { Id = 1, Title = "Marvel Studios", Country = "США" };
         //var starWars = new Author { Id = 2, Title = "Lucasfilm", Country = "США" };
         //var netflix = new Author { Id = 3, Title = "Netflix Studios", Country = "США" };
         //var dc = new Author { Id = 4, Title = "DC Films", Country = "США" };
         //var fox = new Author { Id = 5, Title = "20th Century Fox", Country = "Новая Зеландия" };
         //var amazon = new Author { Id = 6, Title = "Amazon Studios", Country = "США" };
+
+        //await db.AddAuthor(marvel);
+        //await db.AddAuthor(starWars);
+        //await db.AddAuthor(netflix);
+        //await db.AddAuthor(dc);
+        //await db.AddAuthor(fox);
+        //await db.AddAuthor(amazon);
+
+        
 
         //var contents = new List<Content>
         //{
@@ -379,7 +403,7 @@ public partial class MainPage : ContentPage
         //    };
         //    await db.AddRating(rating);
         //}
-        LoadTopRatedContent();
+        await LoadTopRatedContent();
     }
     private async Task LoadTopRatedContent()
     {

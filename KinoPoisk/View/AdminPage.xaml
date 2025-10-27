@@ -18,7 +18,7 @@
         <ListView x:Name="UsersListView" ItemSelected="Selected" HeightRequest="200">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Login}"/>
+                    <TextCell Text="{Binding Login}" TextColor="White"/>
                 </DataTemplate>
                </ListView.ItemTemplate>
         </ListView>

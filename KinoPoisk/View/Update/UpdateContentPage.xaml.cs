@@ -1,17 +1,21 @@
+using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
-
+using KinoPoisk.View.Add;
 namespace KinoPoisk.View.Update;
 
 public partial class UpdateContentPage : ContentPage
 {
 	DBALL db;
     Content currentContent;
+    public List<GerneIs> gerneIss { get; set; }
     public UpdateContentPage(DBALL database, Content content)
 	{
 		InitializeComponent();
 		db = database;
         currentContent = content;
-
+        LoadAuthors();
+        LoadType();
+        LoadGerne();
         FillFields();
     }
 
@@ -23,6 +27,12 @@ public partial class UpdateContentPage : ContentPage
         NameEntry.Text = currentContent.Name;
         DescriptionEditor.Text = currentContent.Description;
         AgeEntry.Text = currentContent.Age?.ToString();
+
+        //Из item выберать колекцию и дальше по id сопоставлять с defoult с currentContent
+        GenreCollection.ItemsSource = currentContent.Gernes;
+        AuthorPicker.SelectedItem = currentContent.Author;
+        TypePicker.SelectedItem = currentContent.TypeContent;
+
         Date.Date = currentContent.Data;
         CountSeries.Text = currentContent.CountSeries.ToString();
         SubscriptionSwitch.IsToggled = currentContent.Subscription;
@@ -49,19 +59,63 @@ public partial class UpdateContentPage : ContentPage
         await Navigation.PopAsync();
     }
 
-    private void AddType(object sender, EventArgs e)
+    private async void AddAuthor(object sender, EventArgs e)
     {
+        var popup = new AddAuthorPopup(db);
+
+        await this.ShowPopupAsync(popup);
+
+        LoadAuthors();
+    }
+
+    private async void LoadAuthors()
+    {
+        var dbLocal = await db.GetDB();
+        var list = await dbLocal.GetAuthors();
+
+        AuthorPicker.Items.Clear();
+
+        for (int i = 0; i < list.Count; i++)
+            AuthorPicker.Items.Add($"{list[i].Title} ({list[i].Country})");
+    }
+
+    private async void AddType(object sender, EventArgs e)
+    {
+        var popup = new AddTypePopup(db);
+
+        await this.ShowPopupAsync(popup);
+        LoadType();
 
     }
 
-    private void AddGerne(object sender, EventArgs e)
+    private async void LoadType()
     {
+        var dbLocal = await db.GetDB();
+        var list = await dbLocal.GetTypeContent();
+
+        TypePicker.Items.Clear();
+
+        for (int i = 0; i < list.Count; i++)
+            TypePicker.Items.Add(list[i].Title);
+    }
+
+    private async void AddGerne(object sender, EventArgs e)
+    {
+        var popup = new AddGernePopup(db);
+
+        await this.ShowPopupAsync(popup);
+        LoadGerne();
 
     }
 
-    private void AddAuthor(object sender, EventArgs e)
+    private async void LoadGerne()
     {
+        var dbLocal = await db.GetDB();
+        var list = await dbLocal.GetGernes();
 
+        gerneIss = list.Select(s => new GerneIs { Gerne = s, IsChecked = false }).ToList();
+
+        GenreCollection.ItemsSource = gerneIss;
     }
 
     private void LoadImage(object sender, EventArgs e)
