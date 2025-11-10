@@ -4,11 +4,9 @@ using System.Threading.Tasks;
 namespace KinoPoisk.View.Add;
 public partial class AddGernePopup : Popup
 {
-    private DBALL db;
-    public AddGernePopup(DBALL database)
+    public AddGernePopup()
     {
         InitializeComponent();
-        db = database;
     }
 
     private async void SaveGerne(object sender, EventArgs e)
@@ -26,7 +24,7 @@ public partial class AddGernePopup : Popup
             Title = title,
         };
 
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         await dbLocal.AddGenre(genre);
         Close();
     }

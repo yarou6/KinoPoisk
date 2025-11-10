@@ -39,7 +39,7 @@ namespace KinoPoisk.DB
         int aeseries = 0;
         int aetypecontents = 0;
         
-        private DBALL dBALL;
+        private static DBALL dBALL;
 
         public static implicit operator DBDTO(DBALL dBALL)
         {
@@ -78,7 +78,7 @@ namespace KinoPoisk.DB
             dBALL.aetypecontents = dBDTO.aetypecontents;
         }
 
-        public async Task<DBALL> GetDB()
+        public static async Task<DBALL> GetDB()
         {
             await Task.Delay(1000);
             //File.Delete(FileSystem.Current.AppDataDirectory + "/test.txt");
@@ -86,11 +86,11 @@ namespace KinoPoisk.DB
 
             if (dBALL == null)
             {
-                dBALL = this;
+                dBALL = new DBALL();
                 if (File.Exists(FileSystem.Current.AppDataDirectory + "/test.txt"))
-                    await ReadFiles();
+                    await dBALL.ReadFiles();
 
-                await InitAdmin();
+                await dBALL.InitAdmin();
             }
             return dBALL;
 

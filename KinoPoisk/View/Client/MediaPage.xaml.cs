@@ -4,14 +4,13 @@ namespace KinoPoisk.View.Client;
 public partial class MediaPage : ContentPage
 {
     private Content movie;
-    private DBALL db;
     private User currentUser;
-    public MediaPage(Content content, DBALL database, User user)
+    //public MediaPage(Content content, User user)
+    public MediaPage(Content content, User user)
     {
         InitializeComponent();
-        movie = content;
-        db = database;
-        currentUser = user;
+        //movie = content;
+        //currentUser = user;
         Load();
     }
 
@@ -25,6 +24,7 @@ public partial class MediaPage : ContentPage
 
         bool isFilm = movie.TypeContent?.Title?.ToLower().Contains("фильм") == true;
 
+        var db = await DBALL.GetDB();
         var allRatings = await db.GetRating();
         double avgStars = movie.GetAverageRating(allRatings);
 
@@ -54,6 +54,7 @@ public partial class MediaPage : ContentPage
 
         string feedback = FeedbackEntry.Text ?? "";
 
+        var db = await DBALL.GetDB();
         await db.AddOrUpdateRating(movie.Id, currentUser.Id, stars, feedback);
 
         double avgStars = movie.GetAverageRating(await db.GetRating());
@@ -65,22 +66,24 @@ public partial class MediaPage : ContentPage
 
     private async void ToggleFavorite(object sender, EventArgs e)
     {
+        var db = await DBALL.GetDB();
         await db.ToggleFavorite(currentUser.Id, movie.Id);
         await DisplayAlert("Готово", "Фильм добавлен/удален из избранного.", "OK");
     }
 
     private async void MarkWatched(object sender, EventArgs e)
     {
+        var db = await DBALL.GetDB();
         await db.MarkAsWatched(currentUser.Id, movie.Id);
         await DisplayAlert("Готово", "Фильм отмечен как просмотренный.", "OK");
     }
     private async void Profile(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ProfilePage(db, currentUser));
+        //await Navigation.PushAsync(new ProfilePage(db, currentUser));
     }
 
     private async void Main(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new MainPage(db, currentUser));
+        //await Navigation.PushAsync(new MainPage(db, currentUser));
     }
 }

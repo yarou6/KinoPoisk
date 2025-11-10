@@ -2,16 +2,15 @@ using System;
 using Microsoft.Maui.Controls;
 using KinoPoisk.DB;
 using KinoPoisk.View.Client;
+
 namespace KinoPoisk.View.Login.registration
 {
     public partial class LoginPage : ContentPage
     {
-        private DBALL db;
 
-        public LoginPage(DBALL database)
+        public LoginPage()
         {
             InitializeComponent();
-            db = database;
             // путь /storage/emulated/0/Docments
             //File.Create("/storage/emulated/0/Documents/test.txt");
             
@@ -29,17 +28,23 @@ namespace KinoPoisk.View.Login.registration
                 return;
             }
 
-            var dbLocal = await db.GetDB();
+            var dbLocal = await DBALL.GetDB();
             var user = await dbLocal.Authenticate(login, password);
             if (user != null)
             {
                 if (user.IsAdmin)
                 {
-                    await Navigation.PushAsync(new AdminPage(db, user));
+                    //await Navigation.PushAsync(new AdminPage(db, user));
+                    Dictionary<string, object> dict = new Dictionary<string, object>();
+                    dict["currentUser"] = user;
+                    await Shell.Current.GoToAsync("Admin", dict);
                 }
                 else
                 {
-                    await Navigation.PushAsync(new MainPage(db, user));
+                    //await Navigation.PushAsync(new MainPage(db, user));
+                    Dictionary<string, object> dict = new Dictionary<string, object>();
+                    dict["currentUser"] = user;
+                    await Shell.Current.GoToAsync("Main", dict);
                 }
             }
             else
@@ -50,7 +55,8 @@ namespace KinoPoisk.View.Login.registration
 
         private async void Registration(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new RegistrationPage(db));
+            //await Navigation.PushAsync(new RegistrationPage(db));
+            await Shell.Current.GoToAsync("Registre");
         }
     }
 }

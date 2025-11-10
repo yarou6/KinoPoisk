@@ -6,8 +6,35 @@
     xmlns:local="clr-namespace:KinoPoisk.View.Login.registration"
     Title="KinoPoisk">
 
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Label Text="{Binding Title}" FontSize="22" TextColor="#FF6600" Margin="10"/>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+    <Shell.FlyoutHeader>
+        <Label Text="KinoPoisk" FontSize="26" Margin="5"/>
+    </Shell.FlyoutHeader>
+    <Shell.FlyoutFooter>
+        <Label Text="Все данные защищены" HorizontalOptions="Center"/>
+    </Shell.FlyoutFooter>
+    <!--<TabBar>-->
+        <ShellContent
+            ContentTemplate="{DataTemplate local:LoginPage}"
+            Title="qwertyui"/>
+    <!--</TabBar>-->
+
     <ShellContent
-        ContentTemplate="{DataTemplate local:LoginPage}"
-        Route="LoginPage" />
+       ContentTemplate="{DataTemplate local:RegistrationPage}"
+        Title="reg"
+        />
+    <ShellContent
+        Title="вы"
+        Route="Собака"
+        />
+    <ShellContent
+        Title="йцу"
+        Route="Собака"
+        />
+
 
 </Shell>

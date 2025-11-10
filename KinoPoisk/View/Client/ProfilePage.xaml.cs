@@ -4,19 +4,18 @@ namespace KinoPoisk.View.Client;
 
 public partial class ProfilePage : ContentPage
 {
-    private DBALL db;
     private User currentUser;
 
-    public ProfilePage(DBALL database, User user)
+    public ProfilePage(User user)
     {
         InitializeComponent();
-        db = database;
         currentUser = user;
         LoadData();
     }
 
     private async void LoadData()
     {
+        var db = await DBALL.GetDB();
         var allContents = await db.GetContents();
         var allRatings = await db.GetRating();
 
@@ -48,6 +47,6 @@ public partial class ProfilePage : ContentPage
 
     private async void Main(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new MainPage(db, currentUser));
+        //await Navigation.PushAsync(new MainPage(db, currentUser));
     }
 }

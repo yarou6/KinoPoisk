@@ -8,12 +8,10 @@ namespace KinoPoisk.View.Add;
 
 public partial class AddContentPage : ContentPage
 {
-    private DBALL db;
     public List<GerneIs> gerneIss {  get; set; } 
-    public AddContentPage(DBALL database)
+    public AddContentPage()
     {
         InitializeComponent();
-        db = database;
         LoadAuthors();
         LoadType();
         LoadGerne();
@@ -22,7 +20,7 @@ public partial class AddContentPage : ContentPage
     private async void Save(object sender, EventArgs e)
     {
         //TypeContent type = TypePicker.SelectedItem.;
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         var PostType = await dbLocal.GetTypeContentId(TypePicker.SelectedIndex);
         var PostAuthor = await dbLocal.GetAuthorId(AuthorPicker.SelectedIndex);
         List<Gerne> gernes= gerneIss.Where(s => s.IsChecked).Select(s => s.Gerne).ToList();
@@ -57,7 +55,7 @@ public partial class AddContentPage : ContentPage
 
     private async void AddAuthor(object sender, EventArgs e)
     {
-        var popup = new AddAuthorPopup(db);
+        var popup = new AddAuthorPopup();
 
         await this.ShowPopupAsync(popup);
 
@@ -66,7 +64,7 @@ public partial class AddContentPage : ContentPage
 
     private async void LoadAuthors()
     {
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         var list = await dbLocal.GetAuthors();
 
         AuthorPicker.Items.Clear();
@@ -77,7 +75,7 @@ public partial class AddContentPage : ContentPage
 
     private async void AddType(object sender, EventArgs e)
     {
-        var popup = new AddTypePopup(db);
+        var popup = new AddTypePopup();
 
         await this.ShowPopupAsync(popup);
         LoadType();
@@ -86,7 +84,7 @@ public partial class AddContentPage : ContentPage
 
     private async void LoadType()
     {
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         var list = await dbLocal.GetTypeContent();
 
         TypePicker.Items.Clear();
@@ -97,7 +95,7 @@ public partial class AddContentPage : ContentPage
 
     private async void AddGerne(object sender, EventArgs e)
     {
-        var popup = new AddGernePopup(db);
+        var popup = new AddGernePopup();
 
         await this.ShowPopupAsync(popup);
         LoadGerne();
@@ -106,7 +104,7 @@ public partial class AddContentPage : ContentPage
 
     private async void LoadGerne()
     {
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         var list = await dbLocal.GetGernes();
 
         gerneIss = list.Select(s => new GerneIs { Gerne = s, IsChecked = false }).ToList();

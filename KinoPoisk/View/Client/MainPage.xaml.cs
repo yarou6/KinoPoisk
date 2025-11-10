@@ -1,15 +1,12 @@
 ﻿using KinoPoisk.DB;
+
 namespace KinoPoisk.View.Client;
-public partial class MainPage : ContentPage
+public partial class MainPage : ContentPage, IQueryAttributable
 {
     private User currentUser;
-    private DBALL db;
-    public MainPage(DBALL database, User user)
+    public MainPage()
     {
         InitializeComponent();
-        db = database;
-        currentUser = user;
-
         BindingContext = this;
 
         InitSampleData();
@@ -407,6 +404,7 @@ public partial class MainPage : ContentPage
     }
     private async Task LoadTopRatedContent()
     {
+        var db = await DBALL.GetDB();
         var contents = await db.GetContents();
         var ratings = await db.GetRating();
 
@@ -457,6 +455,7 @@ public partial class MainPage : ContentPage
 
         dynamic movie = frame.BindingContext;
 
+        var db = await DBALL.GetDB();
         var content = await db.GetContentId((int)movie.Id);
 
 
@@ -466,11 +465,11 @@ public partial class MainPage : ContentPage
             return;
         }
 
-        await Navigation.PushAsync(new MediaPage(content, db, currentUser));
+        await Navigation.PushAsync(new MediaPage(content, currentUser));
     }
     private async void Profile(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ProfilePage(db, currentUser));
+        //await Navigation.PushAsync(new ProfilePage(db, currentUser));
     }
     public async void RefreshData()
     {
@@ -483,6 +482,14 @@ public partial class MainPage : ContentPage
         if (Navigation.NavigationStack.OfType<MainPage>().FirstOrDefault() is MainPage mainPage)
         {
             mainPage.RefreshData();
+        }
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue("currentUser", out object user))
+        {
+             currentUser = (User)user;
         }
     }
 }

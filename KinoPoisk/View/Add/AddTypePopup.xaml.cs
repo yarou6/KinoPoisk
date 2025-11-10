@@ -4,11 +4,9 @@ namespace KinoPoisk.View.Add;
 
 public partial class AddTypePopup : Popup
 {
-    private DBALL db;
-	public AddTypePopup(DBALL database)
+	public AddTypePopup()
 	{
 		InitializeComponent();
-        db = database;
 	}
 
     private async void SaveType(object sender, EventArgs e)
@@ -26,7 +24,7 @@ public partial class AddTypePopup : Popup
             Title = title,
         };
 
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         await dbLocal.AddTypeContent(type);
         Close();
     }

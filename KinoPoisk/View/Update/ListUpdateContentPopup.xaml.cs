@@ -6,12 +6,10 @@ namespace KinoPoisk.View.Update;
 
 public partial class ListUpdateContentPopup : Popup
 {
-	DBALL db;
     Page parentPage;
-    public ListUpdateContentPopup(DBALL database, Page parent)
+    public ListUpdateContentPopup(Page parent)
 	{
 		InitializeComponent();
-		db = database;
 		parentPage = parent;
 
         LoadContents();
@@ -19,7 +17,7 @@ public partial class ListUpdateContentPopup : Popup
 
     private async void LoadContents()
     {
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         var contents = await dbLocal.GetContents();
 
         if (contents != null && contents.Count > 0)
@@ -35,8 +33,8 @@ public partial class ListUpdateContentPopup : Popup
     private async void MoviesSeries(object sender, TappedEventArgs e)
     {
 		Close();
-		if (sender is Frame frame && frame.BindingContext is Content selectedContent)
-			await parentPage.Navigation.PushAsync(new UpdateContentPage(db, selectedContent));
+		//if (sender is Frame frame && frame.BindingContext is Content selectedContent)
+			//await parentPage.Navigation.PushAsync(new UpdateContentPage(db, selectedContent));
 			
     }
 }

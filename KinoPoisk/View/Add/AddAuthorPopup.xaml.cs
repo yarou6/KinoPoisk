@@ -4,11 +4,9 @@ using System.Threading.Tasks;
 namespace KinoPoisk.View.Add;
 public partial class AddAuthorPopup : Popup
 {
-    private DBALL db;
-    public AddAuthorPopup(DBALL database)
+    public AddAuthorPopup()
     {
         InitializeComponent();
-        db = database;
     }
 
     private async void SaveAuthor(object sender, EventArgs e)
@@ -28,7 +26,7 @@ public partial class AddAuthorPopup : Popup
             Country = country
         };
 
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         await dbLocal.AddAuthor(author);
         Close();
     }

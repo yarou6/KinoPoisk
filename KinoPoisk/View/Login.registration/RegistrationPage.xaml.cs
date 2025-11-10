@@ -5,12 +5,9 @@ namespace KinoPoisk.View.Login.registration
 {
     public partial class RegistrationPage : ContentPage
     {
-        private DBALL db;
-
-        public RegistrationPage(DBALL database)
+        public RegistrationPage()
         {
             InitializeComponent();
-            db = database;
         }
 
         private async void Registration(object sender, EventArgs e)
@@ -25,12 +22,12 @@ namespace KinoPoisk.View.Login.registration
                 return;
             }
 
-            var dbLocal = await db.GetDB();
+            var dbLocal = await DBALL.GetDB();
             bool success = await dbLocal.Register(login, password, isAdmin: false, hasSubscription);
             if (success)
             {
                 await DisplayAlert("Успех", "Регистрация выполнена", "ОК");
-                await Navigation.PushAsync(new LoginPage(db));
+                //await Navigation.PushAsync(new LoginPage(db));
             }
             else
             {
@@ -40,7 +37,7 @@ namespace KinoPoisk.View.Login.registration
 
         private async void Login(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new LoginPage(db));
+            //await Navigation.PushAsync(new LoginPage(db));
         }
     }
 }

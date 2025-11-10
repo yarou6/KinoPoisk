@@ -5,13 +5,11 @@ namespace KinoPoisk.View.Update;
 
 public partial class UpdateContentPage : ContentPage
 {
-	DBALL db;
     Content currentContent;
     public List<GerneIs> gerneIss { get; set; }
-    public UpdateContentPage(DBALL database, Content content)
+    public UpdateContentPage(Content content)
 	{
 		InitializeComponent();
-		db = database;
         currentContent = content;
         LoadAuthors();
         LoadType();
@@ -52,7 +50,7 @@ public partial class UpdateContentPage : ContentPage
         currentContent.Subscription = SubscriptionSwitch.IsToggled;
         // currentContent.Image = 
 
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         await dbLocal.UpdateContent(currentContent);
 
         await DisplayAlert("Сохранено", "Изменения успешно сохранены", "ОК");
@@ -61,7 +59,7 @@ public partial class UpdateContentPage : ContentPage
 
     private async void AddAuthor(object sender, EventArgs e)
     {
-        var popup = new AddAuthorPopup(db);
+        var popup = new AddAuthorPopup();
 
         await this.ShowPopupAsync(popup);
 
@@ -70,7 +68,7 @@ public partial class UpdateContentPage : ContentPage
 
     private async void LoadAuthors()
     {
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         var list = await dbLocal.GetAuthors();
 
         AuthorPicker.Items.Clear();
@@ -81,7 +79,7 @@ public partial class UpdateContentPage : ContentPage
 
     private async void AddType(object sender, EventArgs e)
     {
-        var popup = new AddTypePopup(db);
+        var popup = new AddTypePopup();
 
         await this.ShowPopupAsync(popup);
         LoadType();
@@ -90,7 +88,7 @@ public partial class UpdateContentPage : ContentPage
 
     private async void LoadType()
     {
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         var list = await dbLocal.GetTypeContent();
 
         TypePicker.Items.Clear();
@@ -101,7 +99,7 @@ public partial class UpdateContentPage : ContentPage
 
     private async void AddGerne(object sender, EventArgs e)
     {
-        var popup = new AddGernePopup(db);
+        var popup = new AddGernePopup();
 
         await this.ShowPopupAsync(popup);
         LoadGerne();
@@ -110,7 +108,7 @@ public partial class UpdateContentPage : ContentPage
 
     private async void LoadGerne()
     {
-        var dbLocal = await db.GetDB();
+        var dbLocal = await DBALL.GetDB();
         var list = await dbLocal.GetGernes();
 
         gerneIss = list.Select(s => new GerneIs { Gerne = s, IsChecked = false }).ToList();
