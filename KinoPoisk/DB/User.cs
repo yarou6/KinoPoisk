@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,15 @@ namespace KinoPoisk.DB
         public bool HasSubscription { get; set; }
 
         public List<int> WatchedContentIds { get; set; } = new();  
-        public List<int> FavoriteContentIds { get; set; } = new(); 
+        public List<int> FavoriteContentIds { get; set; } = new();
+        private static User user;
+        public static User GetUser()
+        {
+            return user;
+        }
+        public static void PostUser(User userr)
+        {
+            user = userr;
+        }
     }
 }

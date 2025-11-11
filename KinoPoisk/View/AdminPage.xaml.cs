@@ -5,7 +5,7 @@ using KinoPoisk.View.Update;
 namespace KinoPoisk.View;
 public partial class AdminPage : ContentPage
 {
-    private User currentUser;
+    private User selectedUser;
     public AdminPage()
     {
         InitializeComponent();
@@ -17,24 +17,24 @@ public partial class AdminPage : ContentPage
         //Не показываем себя xdxdxd
         var dbLocal = await DBALL.GetDB();
         var list = await dbLocal.GetUsers();
-        UsersListView.ItemsSource = list.Where(u => u.Id != currentUser.Id).ToList();
+        UsersListView.ItemsSource = list.Where(u => u.Id != User.GetUser().Id).ToList();
 
     }
 
     private void Selected(object sender, SelectedItemChangedEventArgs e)
     {
-        currentUser = e.SelectedItem as User;
+        selectedUser = e.SelectedItem as User;
     }
 
     private async void Delete(object sender, EventArgs e)
     {
-        if (currentUser != null)
+        if (selectedUser != null)
         {
             var dbLocal = await DBALL.GetDB();
-            await dbLocal.RemoveUser(currentUser.Id);
+            await dbLocal.RemoveUser(selectedUser.Id);
             LoadUsers();
-            await DisplayAlert("Удалено", $"Пользователь {currentUser.Login} удалён", "ОК");
-            currentUser = null;
+            await DisplayAlert("Удалено", $"Пользователь {selectedUser.Login} удалён", "ОК");
+            selectedUser = null;
         }
         else
         {
@@ -52,12 +52,5 @@ public partial class AdminPage : ContentPage
         var popup = new ListUpdateContentPopup(this);
 
         await this.ShowPopupAsync(popup);
-    }
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
-    {
-        if (query.TryGetValue("currentUser", out object user))
-        {
-            currentUser = (User)user;
-        }
     }
 }

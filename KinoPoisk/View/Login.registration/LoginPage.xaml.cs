@@ -35,16 +35,14 @@ namespace KinoPoisk.View.Login.registration
                 if (user.IsAdmin)
                 {
                     //await Navigation.PushAsync(new AdminPage(db, user));
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
-                    dict["currentUser"] = user;
-                    await Shell.Current.GoToAsync("Admin", dict);
+                    User.PostUser(user);
+                    await Shell.Current.GoToAsync("///Admin");
                 }
                 else
                 {
                     //await Navigation.PushAsync(new MainPage(db, user));
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
-                    dict["currentUser"] = user;
-                    await Shell.Current.GoToAsync("Main", dict);
+                    User.PostUser(user);
+                    await Shell.Current.GoToAsync("///Main");
                 }
             }
             else

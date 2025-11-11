@@ -17,7 +17,7 @@ namespace KinoPoisk
             Routing.RegisterRoute("Registre", typeof(RegistrationPage));
             Routing.RegisterRoute("Login", typeof(LoginPage));
             Routing.RegisterRoute("Admin", typeof(AdminPage));
-            Routing.RegisterRoute("Main", typeof(MainPage));
+            Routing.RegisterRoute("Media", typeof(MediaPage));
         }
     }
 }

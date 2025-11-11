@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:KinoPoisk.View.Login.registration"
+    xmlns:client="clr-namespace:KinoPoisk.View.Client"
     Title="KinoPoisk">
 
     <Shell.ItemTemplate>
@@ -17,24 +18,30 @@
     <Shell.FlyoutFooter>
         <Label Text="Все данные защищены" HorizontalOptions="Center"/>
     </Shell.FlyoutFooter>
-    <!--<TabBar>-->
+    <TabBar>
         <ShellContent
             ContentTemplate="{DataTemplate local:LoginPage}"
-            Title="qwertyui"/>
-    <!--</TabBar>-->
+            Title="Логин"/>
+    </TabBar>
 
-    <ShellContent
+    <!--<ShellContent
        ContentTemplate="{DataTemplate local:RegistrationPage}"
         Title="reg"
-        />
-    <ShellContent
-        Title="вы"
-        Route="Собака"
-        />
-    <ShellContent
-        Title="йцу"
-        Route="Собака"
-        />
+        />-->
+        <ShellContent
+            ContentTemplate="{DataTemplate client:MainPage}"
+            Title="Main"
+            Route="Main"
+            />
+        <ShellContent
+            ContentTemplate="{DataTemplate client:ProfilePage}"
+            Title="Proфиль"
+            Route="Profile"
+            />
+        <ShellContent
+            ContentTemplate="{DataTemplate client:MediaPage}"
+            />
+
 
 
 </Shell>

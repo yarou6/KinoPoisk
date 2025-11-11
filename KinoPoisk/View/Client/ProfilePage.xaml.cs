@@ -4,12 +4,9 @@ namespace KinoPoisk.View.Client;
 
 public partial class ProfilePage : ContentPage
 {
-    private User currentUser;
-
-    public ProfilePage(User user)
+    public ProfilePage()
     {
         InitializeComponent();
-        currentUser = user;
         LoadData();
     }
 
@@ -20,12 +17,12 @@ public partial class ProfilePage : ContentPage
         var allRatings = await db.GetRating();
 
         var favorites = allContents
-            .Where(c => currentUser.FavoriteContentIds.Contains(c.Id))
+            .Where(c => User.GetUser().FavoriteContentIds.Contains(c.Id))
             .ToList();
         FavoriteCollectionView.ItemsSource = favorites;
 
         var watched = allContents
-            .Where(c => currentUser.WatchedContentIds.Contains(c.Id))
+            .Where(c => User.GetUser().WatchedContentIds.Contains(c.Id))
             .ToList();
         WatchedCollectionView.ItemsSource = watched;
 
@@ -34,7 +31,7 @@ public partial class ProfilePage : ContentPage
             r.Content = allContents.FirstOrDefault(c => c.Id == r.IdContent);
         }
         var myRatings = allRatings
-            .Where(r => r.IdUser == currentUser.Id && r.Content != null)
+            .Where(r => r.IdUser == User.GetUser().Id && r.Content != null)
             .Select(r => new
             {
                 ContentName = r.Content.Name ?? "Без названия",
@@ -44,9 +41,21 @@ public partial class ProfilePage : ContentPage
             }).ToList();
         RatingsCollectionView.ItemsSource = myRatings;
     }
-
-    private async void Main(object sender, EventArgs e)
+    public void RefreshData()
     {
-        //await Navigation.PushAsync(new MainPage(db, currentUser));
+        LoadData();
     }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (Navigation.NavigationStack.OfType<ProfilePage>().FirstOrDefault() is ProfilePage profilePage)
+        {
+            profilePage.RefreshData();
+        }
+    }
+    //private async void Main(object sender, EventArgs e)
+    //{
+    //    //await Navigation.PushAsync(new MainPage(db, currentUser));
+    //}
 }

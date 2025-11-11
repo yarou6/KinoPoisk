@@ -5,7 +5,7 @@
     <NavigationPage.TitleView>
         <Grid VerticalOptions="Center">
             <StackLayout Orientation="Horizontal" Spacing="10" Padding="5" VerticalOptions="Center" HorizontalOptions="Start"   >
-                <Button Text="KinoPoisk" FontSize="22" TextColor="#FF6600"  BackgroundColor="Transparent" Clicked="Main"/>
+                <Button Text="KinoPoisk" FontSize="22" TextColor="#FF6600"  BackgroundColor="Transparent"/>
             </StackLayout>
         </Grid>
     </NavigationPage.TitleView>

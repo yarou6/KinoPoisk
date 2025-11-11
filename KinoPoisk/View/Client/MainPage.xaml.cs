@@ -1,15 +1,14 @@
 ﻿using KinoPoisk.DB;
 
 namespace KinoPoisk.View.Client;
-public partial class MainPage : ContentPage, IQueryAttributable
+public partial class MainPage : ContentPage
 {
-    private User currentUser;
     public MainPage()
     {
         InitializeComponent();
         BindingContext = this;
 
-        InitSampleData();
+        LoadTopRatedContent();
     }
     private async void InitSampleData()
     {
@@ -400,9 +399,8 @@ public partial class MainPage : ContentPage, IQueryAttributable
         //    };
         //    await db.AddRating(rating);
         //}
-        await LoadTopRatedContent();
     }
-    private async Task LoadTopRatedContent()
+    private async void LoadTopRatedContent()
     {
         var db = await DBALL.GetDB();
         var contents = await db.GetContents();
@@ -420,7 +418,7 @@ public partial class MainPage : ContentPage, IQueryAttributable
                 c.Image,
                 Rating = stars,
                 RatingText = $"⭐ {stars:F1}/10",
-                Subscription = c.Subscription && !currentUser.HasSubscription
+                Subscription = c.Subscription && !User.GetUser().HasSubscription
             };
         })
         .OrderByDescending(c => c.Rating)
@@ -459,38 +457,30 @@ public partial class MainPage : ContentPage, IQueryAttributable
         var content = await db.GetContentId((int)movie.Id);
 
 
-        if (content.Subscription && !currentUser.HasSubscription)
+        if (content.Subscription && !User.GetUser().HasSubscription)
         {
             await DisplayAlert("Нет Доступа", "Для просмотра этого фильма нужна подписка.", "ОК");
             return;
         }
 
-        await Navigation.PushAsync(new MediaPage(content, currentUser));
+        //await Navigation.PushAsync(new MediaPage(content, User.GetUser()));
+        Dictionary<string, object> dict = new Dictionary<string, object>();
+        dict["movie"] = content;
+        await Shell.Current.GoToAsync("Media", dict);
     }
-    private async void Profile(object sender, EventArgs e)
+    //private async void Profile(object sender, EventArgs e)
+    //{
+    //    //await Navigation.PushAsync(new ProfilePage(db, currentUser));
+    //    await Shell.Current.GoToAsync("Profile");
+    //}
+    public void RefreshData()
     {
-        //await Navigation.PushAsync(new ProfilePage(db, currentUser));
+        LoadTopRatedContent();
     }
-    public async void RefreshData()
+    protected override void OnAppearing()
     {
-        await LoadTopRatedContent();
-    }
-    protected override void OnDisappearing()
-    {
-        base.OnDisappearing();
-
-        if (Navigation.NavigationStack.OfType<MainPage>().FirstOrDefault() is MainPage mainPage)
-        {
-            mainPage.RefreshData();
-        }
-    }
-
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
-    {
-        if (query.TryGetValue("currentUser", out object user))
-        {
-             currentUser = (User)user;
-        }
+        base.OnAppearing();
+        RefreshData();
     }
 }
 

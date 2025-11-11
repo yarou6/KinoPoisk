@@ -1,17 +1,13 @@
 ﻿using KinoPoisk.DB;
+
 namespace KinoPoisk.View.Client;
 
-public partial class MediaPage : ContentPage
+public partial class MediaPage : ContentPage, IQueryAttributable
 {
     private Content movie;
-    private User currentUser;
-    //public MediaPage(Content content, User user)
-    public MediaPage(Content content, User user)
+    public MediaPage()
     {
         InitializeComponent();
-        //movie = content;
-        //currentUser = user;
-        Load();
     }
 
     public async void Load()
@@ -55,7 +51,7 @@ public partial class MediaPage : ContentPage
         string feedback = FeedbackEntry.Text ?? "";
 
         var db = await DBALL.GetDB();
-        await db.AddOrUpdateRating(movie.Id, currentUser.Id, stars, feedback);
+        await db.AddOrUpdateRating(movie.Id, User.GetUser().Id, stars, feedback);
 
         double avgStars = movie.GetAverageRating(await db.GetRating());
 
@@ -67,23 +63,40 @@ public partial class MediaPage : ContentPage
     private async void ToggleFavorite(object sender, EventArgs e)
     {
         var db = await DBALL.GetDB();
-        await db.ToggleFavorite(currentUser.Id, movie.Id);
+        await db.ToggleFavorite(User.GetUser().Id, movie.Id);
         await DisplayAlert("Готово", "Фильм добавлен/удален из избранного.", "OK");
     }
 
     private async void MarkWatched(object sender, EventArgs e)
     {
         var db = await DBALL.GetDB();
-        await db.MarkAsWatched(currentUser.Id, movie.Id);
+        await db.MarkAsWatched(User.GetUser().Id, movie.Id);
         await DisplayAlert("Готово", "Фильм отмечен как просмотренный.", "OK");
     }
-    private async void Profile(object sender, EventArgs e)
-    {
-        //await Navigation.PushAsync(new ProfilePage(db, currentUser));
-    }
 
-    private async void Main(object sender, EventArgs e)
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        //await Navigation.PushAsync(new MainPage(db, currentUser));
+        if (query.TryGetValue("movie", out object movie))
+        {
+            this.movie = (Content)movie;
+        }
+        Load();
     }
+    //private async void Profile(object sender, EventArgs e)
+    //{
+    //    //await Navigation.PushAsync(new ProfilePage(db, currentUser));
+    //    Dictionary<string, object> dict = new Dictionary<string, object>();
+    //    dict["currentUser"] = currentUser;
+    //    await Shell.Current.GoToAsync("Profile", dict);
+    //}
+
+    //private async void Main(object sender, EventArgs e)
+    //{
+    //    //await Navigation.PushAsync(new MainPage(db, currentUser));
+    //    Dictionary<string, object> dict = new Dictionary<string, object>();
+    //    dict["currentUser"] = currentUser;
+    //    await Shell.Current.GoToAsync("Main", dict);
+    //}
+
+
 }
