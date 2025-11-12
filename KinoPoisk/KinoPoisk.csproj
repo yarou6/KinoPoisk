@@ -75,7 +75,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="View\Add\AddGernePopup.xaml.cs">
+	  <Compile Update="View\Admin\Add\AddGernePopup.xaml.cs">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	    <DependentUpon>AddGernePopup.xaml</DependentUpon>
 	  </Compile>
@@ -85,25 +85,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\Add\AddGernePopup.xaml">
+	  <MauiXaml Update="View\Admin\Add\AddGernePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Add\AddAuthorPopup.xaml">
+	  <MauiXaml Update="View\Admin\Add\AddAuthorPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Add\AddContentPage.xaml">
+	  <MauiXaml Update="View\Admin\Add\AddContentPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Add\AddTypePopup.xaml">
+	  <MauiXaml Update="View\Admin\Add\AddTypePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\AdminPage.xaml">
+	  <MauiXaml Update="View\Admin\AdminPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Client\ProfilePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Update\ListUpdateContentPopup.xaml">
+	  <MauiXaml Update="View\Admin\Update\ListUpdateContentPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Client\MediaPage.xaml">
@@ -115,7 +115,7 @@
 	  <MauiXaml Update="View\Login.registration\RegistrationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Update\UpdateContentPage.xaml">
+	  <MauiXaml Update="View\Admin\Update\UpdateContentPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

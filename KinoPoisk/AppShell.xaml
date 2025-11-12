@@ -5,6 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:KinoPoisk.View.Login.registration"
     xmlns:client="clr-namespace:KinoPoisk.View.Client"
+    xmlns:admin="clr-namespace:KinoPoisk.View.Admin"
+    xmlns:add="clr-namespace:KinoPoisk.View.Admin.Add"
+    xmlns:up="clr-namespace:KinoPoisk.View.Admin.Update"
     Title="KinoPoisk">
 
     <Shell.ItemTemplate>
@@ -41,6 +44,24 @@
         <ShellContent
             ContentTemplate="{DataTemplate client:MediaPage}"
             />
+    <TabBar>
+        <ShellContent
+            ContentTemplate="{DataTemplate admin:AdminPage}"
+            
+            Title="Admin"
+            Route="Admin"
+            />       
+        <ShellContent
+            ContentTemplate="{DataTemplate add:AddContentPage}"
+            Title="Add"
+            Route="Add"
+            />       
+        <ShellContent
+            ContentTemplate="{DataTemplate up:UpdateContentPage}"
+            Title="Update"
+            Route="Update"
+            />       
+    </TabBar>
 
 
 

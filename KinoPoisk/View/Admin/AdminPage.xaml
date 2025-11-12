@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="KinoPoisk.View.AdminPage"
+             x:Class="KinoPoisk.View.Admin.AdminPage"
              BackgroundColor="#121212"
              NavigationPage.HasBackButton="False">
 
@@ -29,8 +29,8 @@
 
         <Label Text="Управление контентом" FontAttributes="Bold" Margin="0,20,0,0"/>
 
-        <Button Text="Добавить фильм/Сериал" Clicked="AddContent"/>
-        <Button Text="Изменить фильм/Сериал" Clicked="UpdateContent"/>
+        <!--<Button Text="Добавить фильм/Сериал" Clicked="AddContent"/>
+        <Button Text="Изменить фильм/Сериал" Clicked="UpdateContent"/>-->
 
     </VerticalStackLayout>
 

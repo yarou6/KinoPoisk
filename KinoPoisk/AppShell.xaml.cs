@@ -1,6 +1,7 @@
 ﻿using KinoPoisk.DB;
 using KinoPoisk.View;
 using KinoPoisk.View.Client;
+using KinoPoisk.View.Admin;
 using KinoPoisk.View.Login.registration;
 
 namespace KinoPoisk
@@ -16,7 +17,6 @@ namespace KinoPoisk
 
             Routing.RegisterRoute("Registre", typeof(RegistrationPage));
             Routing.RegisterRoute("Login", typeof(LoginPage));
-            Routing.RegisterRoute("Admin", typeof(AdminPage));
             Routing.RegisterRoute("Media", typeof(MediaPage));
         }
     }

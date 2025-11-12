@@ -1,20 +1,16 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
-using KinoPoisk.View.Add;
-namespace KinoPoisk.View.Update;
+using KinoPoisk.View.Admin.Add;
 
-public partial class UpdateContentPage : ContentPage
+namespace KinoPoisk.View.Admin.Update;
+
+public partial class UpdateContentPage : ContentPage, IQueryAttributable
 {
     Content currentContent;
     public List<GerneIs> gerneIss { get; set; }
-    public UpdateContentPage(Content content)
+    public UpdateContentPage()
 	{
-		InitializeComponent();
-        currentContent = content;
-        LoadAuthors();
-        LoadType();
-        LoadGerne();
-        FillFields();
+        InitializeComponent();
     }
 
     private void FillFields()
@@ -27,6 +23,7 @@ public partial class UpdateContentPage : ContentPage
         AgeEntry.Text = currentContent.Age?.ToString();
 
         //Из item выберать колекцию и дальше по id сопоставлять с defoult с currentContent
+        
         GenreCollection.ItemsSource = currentContent.Gernes;
         AuthorPicker.SelectedItem = currentContent.Author;
         TypePicker.SelectedItem = currentContent.TypeContent;
@@ -119,5 +116,35 @@ public partial class UpdateContentPage : ContentPage
     private void LoadImage(object sender, EventArgs e)
     {
 
+    }
+
+    private async Task UpdateContent()
+    {
+        var popup = new ListUpdateContentPopup(this);
+
+        await this.ShowPopupAsync(popup);
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue("currentContent", out object movie))
+        {
+            currentContent = (Content)movie;
+        }
+    }
+
+    public async void RefreshData()
+    {
+        await UpdateContent();
+
+        LoadAuthors();
+        LoadType();
+        LoadGerne();
+        FillFields();
+    }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        RefreshData();
     }
 }

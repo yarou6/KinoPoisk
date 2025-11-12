@@ -1,31 +1,31 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
-namespace KinoPoisk.View.Add;
-
-public partial class AddTypePopup : Popup
+using System.Threading.Tasks;
+namespace KinoPoisk.View.Admin.Add;
+public partial class AddGernePopup : Popup
 {
-	public AddTypePopup()
-	{
-		InitializeComponent();
-	}
+    public AddGernePopup()
+    {
+        InitializeComponent();
+    }
 
-    private async void SaveType(object sender, EventArgs e)
+    private async void SaveGerne(object sender, EventArgs e)
     {
         string title = TitleEntry.Text?.Trim();
 
-        if (string.IsNullOrWhiteSpace(title) )
+        if (string.IsNullOrWhiteSpace(title))
         {
             await Application.Current.MainPage.DisplayAlert("Ошибка", "Заполните все поля", "ОК");
             return;
         }
 
-        var type = new TypeContent
+        var genre = new Gerne
         {
             Title = title,
         };
 
         var dbLocal = await DBALL.GetDB();
-        await dbLocal.AddTypeContent(type);
+        await dbLocal.AddGenre(genre);
         Close();
     }
 

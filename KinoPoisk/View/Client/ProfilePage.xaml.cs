@@ -48,11 +48,9 @@ public partial class ProfilePage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        RefreshData();
 
-        if (Navigation.NavigationStack.OfType<ProfilePage>().FirstOrDefault() is ProfilePage profilePage)
-        {
-            profilePage.RefreshData();
-        }
+
     }
     //private async void Main(object sender, EventArgs e)
     //{

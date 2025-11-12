@@ -4,7 +4,7 @@ using Microsoft.Maui.Graphics.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace KinoPoisk.View.Add;
+namespace KinoPoisk.View.Admin.Add;
 
 public partial class AddContentPage : ContentPage
 {

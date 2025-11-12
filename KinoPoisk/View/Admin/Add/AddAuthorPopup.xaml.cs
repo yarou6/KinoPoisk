@@ -1,7 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
 using System.Threading.Tasks;
-namespace KinoPoisk.View.Add;
+namespace KinoPoisk.View.Admin.Add;
 public partial class AddAuthorPopup : Popup
 {
     public AddAuthorPopup()

@@ -1,8 +1,8 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
-using KinoPoisk.View.Add;
-using KinoPoisk.View.Update;
-namespace KinoPoisk.View;
+using KinoPoisk.View.Admin.Add;
+using KinoPoisk.View.Admin.Update;
+namespace KinoPoisk.View.Admin;
 public partial class AdminPage : ContentPage
 {
     private User selectedUser;
@@ -42,15 +42,15 @@ public partial class AdminPage : ContentPage
         }
     }
 
-    private async void AddContent(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new AddContentPage());
-    }
+    //private async void AddContent(object sender, EventArgs e)
+    //{
+    //    await Navigation.PushAsync(new AddContentPage());
+    //}
 
-    private async void UpdateContent(object sender, EventArgs e)
-    {
-        var popup = new ListUpdateContentPopup(this);
+    //private async void UpdateContent(object sender, EventArgs e)
+    //{
+    //    var popup = new ListUpdateContentPopup(this);
 
-        await this.ShowPopupAsync(popup);
-    }
+    //    await this.ShowPopupAsync(popup);
+    //}
 }

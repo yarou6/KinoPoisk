@@ -71,7 +71,7 @@ public partial class MediaPage : ContentPage, IQueryAttributable
     {
         var db = await DBALL.GetDB();
         await db.MarkAsWatched(User.GetUser().Id, movie.Id);
-        await DisplayAlert("Готово", "Фильм отмечен как просмотренный.", "OK");
+        await DisplayAlert("Готово", "Фильм отмечен как просмотренный/убран из просмотренных.", "OK");
     }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)

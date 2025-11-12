@@ -2,7 +2,7 @@ using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
 using System.Threading.Tasks;
 
-namespace KinoPoisk.View.Update;
+namespace KinoPoisk.View.Admin.Update;
 
 public partial class ListUpdateContentPopup : Popup
 {
@@ -32,9 +32,13 @@ public partial class ListUpdateContentPopup : Popup
 
     private async void MoviesSeries(object sender, TappedEventArgs e)
     {
-		Close();
-		//if (sender is Frame frame && frame.BindingContext is Content selectedContent)
-			//await parentPage.Navigation.PushAsync(new UpdateContentPage(db, selectedContent));
-			
+		
+        if (sender is Frame frame && frame.BindingContext is Content selectedContent)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            dict["currentContent"] = selectedContent;
+            await Shell.Current.GoToAsync("///Update", dict);
+
+        }Close();
     }
 }

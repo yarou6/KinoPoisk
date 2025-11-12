@@ -520,12 +520,17 @@ namespace KinoPoisk.DB
             await Task.Delay(1000);
 
             var user = await GetUserById(userId);
-            if (user != null && !user.WatchedContentIds.Contains(contentId))
+            if (user != null)
             {
-                user.WatchedContentIds.Add(contentId);
+                if (user.WatchedContentIds.Contains(contentId))
+                    user.WatchedContentIds.Remove(contentId);
+                else
+                    user.WatchedContentIds.Add(contentId);
+
                 await SaveFile();
             }
         }
+        
 
         public async Task ToggleFavorite(int userId, int contentId)
         {
