@@ -65,12 +65,7 @@ public partial class AddContentPage : ContentPage
     private async void LoadAuthors()
     {
         var dbLocal = await DBALL.GetDB();
-        var list = await dbLocal.GetAuthors();
-
-        AuthorPicker.Items.Clear();
-
-        for (int i = 0; i < list.Count; i++)
-            AuthorPicker.Items.Add($"{list[i].Title} ({list[i].Country})");
+        AuthorPicker.ItemsSource = await dbLocal.GetAuthors();
     }
 
     private async void AddType(object sender, EventArgs e)
@@ -85,12 +80,8 @@ public partial class AddContentPage : ContentPage
     private async void LoadType()
     {
         var dbLocal = await DBALL.GetDB();
-        var list = await dbLocal.GetTypeContent();
+        TypePicker.ItemsSource = await dbLocal.GetTypeContent();
 
-        TypePicker.Items.Clear();
-
-        for (int i = 0; i < list.Count; i++)
-            TypePicker.Items.Add(list[i].Title);
     }
 
     private async void AddGerne(object sender, EventArgs e)

@@ -13,5 +13,10 @@ namespace KinoPoisk.DB
         public string Title { get; set; }
 
         public string Country { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Title} ({Country})";
+        }
     }
 }

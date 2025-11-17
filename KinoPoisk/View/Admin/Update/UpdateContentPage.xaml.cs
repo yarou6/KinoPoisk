@@ -17,14 +17,22 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
     {
         if (currentContent == null)
             return;
-
+       
         NameEntry.Text = currentContent.Name;
         DescriptionEditor.Text = currentContent.Description;
         AgeEntry.Text = currentContent.Age?.ToString();
 
         //Из item выберать колекцию и дальше по id сопоставлять с defoult с currentContent
-        
-        GenreCollection.ItemsSource = currentContent.Gernes;
+
+        for (int i = 0; i < currentContent.Gernes.Count; i++)
+        {
+            if (gerneIss.FirstOrDefault(s => s.Gerne.Id == currentContent.Gernes[i].Id) != null)
+            {
+                gerneIss[i].IsChecked = true;
+            }
+        }
+        GenreCollection.ItemsSource = gerneIss;
+
         AuthorPicker.SelectedItem = currentContent.Author;
         TypePicker.SelectedItem = currentContent.TypeContent;
 
@@ -66,12 +74,7 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
     private async void LoadAuthors()
     {
         var dbLocal = await DBALL.GetDB();
-        var list = await dbLocal.GetAuthors();
-
-        AuthorPicker.Items.Clear();
-
-        for (int i = 0; i < list.Count; i++)
-            AuthorPicker.Items.Add($"{list[i].Title} ({list[i].Country})");
+        AuthorPicker.ItemsSource = await dbLocal.GetAuthors();
     }
 
     private async void AddType(object sender, EventArgs e)
@@ -86,12 +89,7 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
     private async void LoadType()
     {
         var dbLocal = await DBALL.GetDB();
-        var list = await dbLocal.GetTypeContent();
-
-        TypePicker.Items.Clear();
-
-        for (int i = 0; i < list.Count; i++)
-            TypePicker.Items.Add(list[i].Title);
+        TypePicker.ItemsSource = await dbLocal.GetTypeContent();
     }
 
     private async void AddGerne(object sender, EventArgs e)
@@ -110,7 +108,7 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
 
         gerneIss = list.Select(s => new GerneIs { Gerne = s, IsChecked = false }).ToList();
 
-        GenreCollection.ItemsSource = gerneIss;
+        FillFields();
     }
 
     private void LoadImage(object sender, EventArgs e)
@@ -140,7 +138,6 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
         LoadAuthors();
         LoadType();
         LoadGerne();
-        FillFields();
     }
     protected override void OnAppearing()
     {
