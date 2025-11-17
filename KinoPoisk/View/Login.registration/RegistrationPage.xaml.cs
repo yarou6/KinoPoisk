@@ -27,6 +27,7 @@ namespace KinoPoisk.View.Login.registration
             if (success)
             {
                 await DisplayAlert("Успех", "Регистрация выполнена", "ОК");
+                await Shell.Current.GoToAsync("Login");
                 //await Navigation.PushAsync(new LoginPage(db));
             }
             else
@@ -38,6 +39,7 @@ namespace KinoPoisk.View.Login.registration
         private async void Login(object sender, EventArgs e)
         {
             //await Navigation.PushAsync(new LoginPage(db));
+            await Shell.Current.GoToAsync("Login");
         }
     }
 }

@@ -24,17 +24,29 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
 
         //Из item выберать колекцию и дальше по id сопоставлять с defoult с currentContent
 
-        for (int i = 0; i < currentContent.Gernes.Count; i++)
+        if (gerneIss != null && currentContent.Gernes != null)
         {
-            if (gerneIss.FirstOrDefault(s => s.Gerne.Id == currentContent.Gernes[i].Id) != null)
+            foreach (var item in gerneIss)
             {
-                gerneIss[i].IsChecked = true;
+                item.IsChecked = currentContent.Gernes.Any(g => g.Id == item.Gerne.Id);
             }
+            GenreCollection.ItemsSource = null;
+            GenreCollection.ItemsSource = gerneIss;
         }
-        GenreCollection.ItemsSource = gerneIss;
 
-        AuthorPicker.SelectedItem = currentContent.Author;
-        TypePicker.SelectedItem = currentContent.TypeContent;
+        if (AuthorPicker.ItemsSource != null && currentContent.Author != null)
+        {
+            var selectedAuthor = AuthorPicker.ItemsSource.Cast<Author>().FirstOrDefault(a => a.Id == currentContent.Author.Id);
+            if (selectedAuthor != null)
+                AuthorPicker.SelectedItem = selectedAuthor;
+        }
+
+        if (TypePicker.ItemsSource != null && currentContent.TypeContent != null)
+        {
+            var selectedType = TypePicker.ItemsSource.Cast<TypeContent>().FirstOrDefault(t => t.Id == currentContent.TypeContent.Id);
+            if (selectedType != null)
+                TypePicker.SelectedItem = selectedType;
+        }
 
         Date.Date = currentContent.Data;
         CountSeries.Text = currentContent.CountSeries.ToString();

@@ -12,9 +12,7 @@ public partial class AddContentPage : ContentPage
     public AddContentPage()
     {
         InitializeComponent();
-        LoadAuthors();
-        LoadType();
-        LoadGerne();
+     
     }
 
     private async void Save(object sender, EventArgs e)
@@ -101,5 +99,17 @@ public partial class AddContentPage : ContentPage
         gerneIss = list.Select(s => new GerneIs { Gerne = s, IsChecked = false }).ToList();
 
         GenreCollection.ItemsSource = gerneIss;
+    }
+     
+    public async void RefreshData()
+    {
+        LoadAuthors();
+        LoadType();
+        LoadGerne();
+    }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        RefreshData();
     }
 }

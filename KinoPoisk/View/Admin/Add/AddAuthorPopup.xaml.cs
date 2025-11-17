@@ -29,6 +29,7 @@ public partial class AddAuthorPopup : Popup
         var dbLocal = await DBALL.GetDB();
         await dbLocal.AddAuthor(author);
         Close();
+
     }
 
     private void Cancel(object sender, EventArgs e)

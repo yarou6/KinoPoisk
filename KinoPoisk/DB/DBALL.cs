@@ -203,7 +203,7 @@ namespace KinoPoisk.DB
         public async Task<List<Author>> GetAuthors()
         {
             await Task.Delay(1000);
-            return authors;
+            return new List<Author>(authors);
         }
         public async Task<Author> GetAuthorId(int id)
         {
