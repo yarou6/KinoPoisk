@@ -1,12 +1,15 @@
 using CommunityToolkit.Maui.Views;
 using KinoPoisk.DB;
 using KinoPoisk.View.Admin.Add;
+using Microsoft.Maui.Storage;
 
 namespace KinoPoisk.View.Admin.Update;
 
 public partial class UpdateContentPage : ContentPage, IQueryAttributable
 {
     Content currentContent;
+
+    private string _selectedImagePath;
     public List<GerneIs> gerneIss { get; set; }
     public UpdateContentPage()
 	{
@@ -65,7 +68,7 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
         currentContent.Data = Date.Date;
         currentContent.CountSeries = int.TryParse(CountSeries.Text, out int series) ? series : 0;
         currentContent.Subscription = SubscriptionSwitch.IsToggled;
-        // currentContent.Image = 
+        currentContent.Image = _selectedImagePath;
 
         var dbLocal = await DBALL.GetDB();
         await dbLocal.UpdateContent(currentContent);
@@ -123,9 +126,34 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
         FillFields();
     }
 
-    private void LoadImage(object sender, EventArgs e)
+    private async void LoadImage(object sender, EventArgs e)
     {
-
+        var type = new Dictionary<DevicePlatform, IEnumerable<string>>();
+        type[DevicePlatform.Android] = new List<string>
+        {
+            "image/png",
+            "image/jpg",
+            "image/jpeg",
+            "image/webp"
+        };
+        type[DevicePlatform.WinUI] = new List<string>
+        {
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".webp"
+        };
+        PickOptions pickOptions = new PickOptions();
+        pickOptions.FileTypes = new FilePickerFileType(type);
+        FileResult? fileResult = await FilePicker.Default.PickAsync(pickOptions);
+        if (fileResult != null)
+        {
+            // Сохраняем путь к файлу (например, его файлName или полное имя)
+            currentContent.Image = fileResult.FullPath; // или другое свойство, если есть
+            SelectedImage.Source = ImageSource.FromFile(fileResult.FullPath);
+            _selectedImagePath = fileResult.FullPath;
+        }
+        else await DisplayAlert("Файл", "Вы не выбрали изображение", "Ладно");
     }
 
     private async Task UpdateContent()

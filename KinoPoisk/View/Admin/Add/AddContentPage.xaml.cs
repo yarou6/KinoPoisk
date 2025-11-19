@@ -9,6 +9,7 @@ namespace KinoPoisk.View.Admin.Add;
 public partial class AddContentPage : ContentPage
 {
     public List<GerneIs> gerneIss {  get; set; } 
+    public string Im { get; set; }
     public AddContentPage()
     {
         InitializeComponent();
@@ -17,7 +18,6 @@ public partial class AddContentPage : ContentPage
 
     private async void Save(object sender, EventArgs e)
     {
-        //TypeContent type = TypePicker.SelectedItem.;
         var dbLocal = await DBALL.GetDB();
         var PostType = await dbLocal.GetTypeContentId(TypePicker.SelectedIndex);
         var PostAuthor = await dbLocal.GetAuthorId(AuthorPicker.SelectedIndex);
@@ -37,7 +37,7 @@ public partial class AddContentPage : ContentPage
             Data = Date.Date,
             CountSeries = countSeries,
             Subscription = SubscriptionSwitch.IsToggled,
-            //Image =
+            Image = SelectedImage.ToString()
 
         };
         await dbLocal.AddContent(content);
@@ -46,8 +46,32 @@ public partial class AddContentPage : ContentPage
 
     }
 
-    private void LoadImage(object sender, EventArgs e)
+    private async void LoadImage(object sender, EventArgs e)
     {
+        var type = new Dictionary<DevicePlatform, IEnumerable<string>>();
+        type[DevicePlatform.Android] = new List<string>
+        {
+            "image/png",
+            "image/jpg",
+            "image/jpeg",
+            "image/webp"
+        };
+        type[DevicePlatform.WinUI] = new List<string>
+        {
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".webp"
+        };
+        PickOptions pickOptions = new PickOptions();
+        pickOptions.FileTypes = new FilePickerFileType(type);
+        FileResult? fileResult = await FilePicker.Default.PickAsync(pickOptions);
+        if (fileResult != null)
+        {
+            Stream inputStream = await fileResult.OpenReadAsync();
+            SelectedImage.Source = ImageSource.FromStream(() => inputStream);
+        }
+        else await DisplayAlert("Файл", "Вы не выбрали изображение", "Ладно");
 
     }
 
