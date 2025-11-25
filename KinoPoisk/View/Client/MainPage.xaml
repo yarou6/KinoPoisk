@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:view="clr-namespace:KinoPoisk.View"
                  x:Class="KinoPoisk.View.Client.MainPage"
                  BackgroundColor="#121212"
                  NavigationPage.HasBackButton="False">
@@ -43,6 +44,12 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+
+                
+            <view:NewContent1/>
+
+
 
             <Label Text="Все фильмы" FontSize="18" />
             <CollectionView x:Name="AllMoviesCollectionView" ItemsLayout="VerticalGrid, 2" Margin="0,0,0,10">

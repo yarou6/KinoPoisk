@@ -9,7 +9,7 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
 {
     Content currentContent;
 
-    private string _selectedImagePath;
+    private FileResult? fileResult;
     public List<GerneIs> gerneIss { get; set; }
     public UpdateContentPage()
 	{
@@ -68,7 +68,20 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
         currentContent.Data = Date.Date;
         currentContent.CountSeries = int.TryParse(CountSeries.Text, out int series) ? series : 0;
         currentContent.Subscription = SubscriptionSwitch.IsToggled;
-        currentContent.Image = _selectedImagePath;
+
+        if (fileResult != null)
+        {
+            var destinationPath = Path.Combine(FileSystem.Current.AppDataDirectory,currentContent.Name + fileResult.FileName);
+
+            using (var sourceStream = await fileResult.OpenReadAsync())
+            using (var destinationStream = File.Open(destinationPath, FileMode.Create))
+            {
+                await sourceStream.CopyToAsync(destinationStream);
+            }
+            currentContent.Image = destinationPath;
+        }
+
+
 
         var dbLocal = await DBALL.GetDB();
         await dbLocal.UpdateContent(currentContent);
@@ -148,10 +161,9 @@ public partial class UpdateContentPage : ContentPage, IQueryAttributable
         FileResult? fileResult = await FilePicker.Default.PickAsync(pickOptions);
         if (fileResult != null)
         {
-            // Сохраняем путь к файлу (например, его файлName или полное имя)
-            currentContent.Image = fileResult.FullPath; // или другое свойство, если есть
-            SelectedImage.Source = ImageSource.FromFile(fileResult.FullPath);
-            _selectedImagePath = fileResult.FullPath;
+            Stream stream = await fileResult.OpenReadAsync();
+            SelectedImage.Source = ImageSource.FromStream(() => stream);
+            this.fileResult = fileResult;
         }
         else await DisplayAlert("Файл", "Вы не выбрали изображение", "Ладно");
     }

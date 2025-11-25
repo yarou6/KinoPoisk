@@ -8,6 +8,7 @@ namespace KinoPoisk.View.Admin.Add;
 
 public partial class AddContentPage : ContentPage
 {
+    private FileResult? fileResult;
     public List<GerneIs> gerneIss {  get; set; } 
     public string Im { get; set; }
     public AddContentPage()
@@ -22,8 +23,19 @@ public partial class AddContentPage : ContentPage
         var PostType = await dbLocal.GetTypeContentId(TypePicker.SelectedIndex);
         var PostAuthor = await dbLocal.GetAuthorId(AuthorPicker.SelectedIndex);
         List<Gerne> gernes= gerneIss.Where(s => s.IsChecked).Select(s => s.Gerne).ToList();
+        var destinationPath = "";
+        if (fileResult != null)
+        {
+            destinationPath = Path.Combine(FileSystem.Current.AppDataDirectory, fileResult.FileName);
 
+            using (var sourceStream = await fileResult.OpenReadAsync())
+            using (var destinationStream = File.Open(destinationPath, FileMode.Create))
+            {
+                await sourceStream.CopyToAsync(destinationStream);
+            }
+        }
         int.TryParse(CountSeries.Text.Trim(), out int countSeries);
+
         Content content = new Content()
         {
             Name = NameEntry.Text.Trim(),
@@ -37,7 +49,7 @@ public partial class AddContentPage : ContentPage
             Data = Date.Date,
             CountSeries = countSeries,
             Subscription = SubscriptionSwitch.IsToggled,
-            Image = SelectedImage.ToString()
+            Image = destinationPath,
 
         };
         await dbLocal.AddContent(content);
@@ -68,8 +80,9 @@ public partial class AddContentPage : ContentPage
         FileResult? fileResult = await FilePicker.Default.PickAsync(pickOptions);
         if (fileResult != null)
         {
-            Stream inputStream = await fileResult.OpenReadAsync();
-            SelectedImage.Source = ImageSource.FromStream(() => inputStream);
+            Stream stream = await fileResult.OpenReadAsync();
+            SelectedImage.Source = ImageSource.FromStream(() => stream);
+            this.fileResult = fileResult;
         }
         else await DisplayAlert("Файл", "Вы не выбрали изображение", "Ладно");
 

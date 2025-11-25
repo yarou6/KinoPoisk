@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace KinoPoisk.DB
@@ -10,7 +11,7 @@ namespace KinoPoisk.DB
     {
         public int Id { get; set; }
         public string Title { get; set; }
-
+        [JsonIgnore]
         public List<Content> Contents { get; set; }=new List<Content>();
     }
     
