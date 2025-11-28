@@ -7,10 +7,11 @@ namespace KinoPoisk.View.Login.registration
 {
     public partial class LoginPage : ContentPage
     {
-
         public LoginPage()
         {
             InitializeComponent();
+
+
             // путь /storage/emulated/0/Docments
             //File.Create("/storage/emulated/0/Documents/test.txt");
             

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace KinoPoisk.DB
     }
     public class DBALL
     {
+        HttpClient client;
+
         List<Content> contents = new();
         List<Author> authors = new();
         List<Gerne> gernes = new();
@@ -40,6 +43,13 @@ namespace KinoPoisk.DB
         int aetypecontents = 0;
         
         private static DBALL dBALL;
+
+        public DBALL()
+        {
+            client = new HttpClient();
+            client.BaseAddress = new Uri("http://192.168.4.2:5168"); //Pc
+            //client.BaseAddress = new Uri("http://localhost:5168"); //Android
+        }
 
         public static implicit operator DBDTO(DBALL dBALL)
         {
@@ -398,10 +408,10 @@ namespace KinoPoisk.DB
         public async Task<User> Authenticate(string login, string password)
         {
             //await Task.Delay(1000);
-            if (users == null)
-                users = new List<User>();
-            var obj = users.FirstOrDefault(u => u.Login == login && u.Password == password);
-            return obj;
+
+            var result = await client.PostAsync($"api/EntranceController/Login?login={login}&password={password}", null);
+            var content = await result.Content.ReadFromJsonAsync<User>();
+            return content;
         }
         public async Task<bool> Register(string login, string password, bool isAdmin = false, bool hasSubscription = false)
         {
